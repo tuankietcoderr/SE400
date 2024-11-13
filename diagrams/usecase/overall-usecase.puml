@@ -1,0 +1,25 @@
+@startuml overall-usecase
+left to right direction
+actor "Khách Hàng" as KH
+actor "Admin" as AD
+actor "Hệ Thống" as HT
+
+KH --> (Đăng ký tài khoản)
+KH --> (Đăng nhập)
+KH --> (Tìm kiếm khách sạn)
+KH --> (Xem chi tiết khách sạn)
+KH --> (Đặt phòng)
+KH --> (Thanh toán)
+KH --> (Quản lý đặt phòng)
+KH --> (Đánh giá khách sạn)
+
+AD --> (Quản lý khách sạn)
+AD --> (Quản lý phòng khách sạn)
+AD --> (Quản lý khuyến mãi)
+AD --> (Quản lý tài khoản admin)
+AD --> (Gửi thông báo cho người dùng)
+AD --> (Tạo báo cáo tổng hợp)
+
+HT --> (Gửi thông báo cho người dùng)
+
+@enduml
