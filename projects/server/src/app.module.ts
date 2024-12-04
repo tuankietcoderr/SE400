@@ -9,9 +9,39 @@ import { CredentialService } from './credential/credential.service';
 import { CredentialModule } from './credential/credential.module';
 import { UserModule } from './user/user.module';
 import { LoggerModule } from './logger/logger.module';
-
+import { HotelModule } from './hotel/hotel.module';
+import { RoomModule } from './room/room.module';
+import { BookingModule } from './booking/booking.module';
+import { ReviewModule } from './review/review.module';
+import { AmentyModule } from './amenty/amenty.module';
+import { PaymentModule } from './payment/payment.module';
+import { UploadModule } from './upload/upload.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { AssetModule } from './asset/asset.module';
+import * as multer from 'multer';
 @Module({
-  imports: [GlobalConfigModule, DatabaseModule, MongooseModelsModule, AuthModule, CredentialModule, UserModule, LoggerModule],
+  imports: [
+    MulterModule.register({
+      storage: multer.memoryStorage()
+    }),
+    GlobalConfigModule,
+    DatabaseModule,
+    MongooseModelsModule,
+    AuthModule,
+    CredentialModule,
+    UserModule,
+    LoggerModule,
+    HotelModule,
+    RoomModule,
+    BookingModule,
+    ReviewModule,
+    AmentyModule,
+    PaymentModule,
+    UploadModule,
+    CloudinaryModule,
+    AssetModule
+  ],
   controllers: [AppController],
   providers: [AppService, CredentialService]
 })

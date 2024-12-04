@@ -10,13 +10,11 @@ export type UserDocument = HydratedDocument<User>;
 export type AdminDocument = HydratedDocument<Admin>;
 export type CustomerDocument = HydratedDocument<Customer>;
 
-interface UserStrategy {}
-
 @Schema({ timestamps: true, collection: ENTITY_NAME.USER, autoCreate: true, discriminatorKey: 'userKind' })
 export class User {
   _id: Types.ObjectId;
 
-  @Prop({ default: ERole.CUSTOMER, enum: Object.values(ERole) })
+  @Prop({ default: ERole.CUSTOMER, enum: Object.values(ERole), index: true })
   role: ERole | string;
 
   @Prop({ required: true, index: true })
@@ -27,10 +25,10 @@ export class User {
 }
 
 @Schema({ timestamps: true, collection: ENTITY_NAME.ADMIN, autoCreate: true })
-export class Admin extends User implements UserStrategy {}
+export class Admin extends User {}
 
 @Schema({ timestamps: true, collection: ENTITY_NAME.CUSTOMER, autoCreate: true })
-export class Customer extends User implements UserStrategy {
+export class Customer extends User {
   @Prop({ default: EAuthStrategy.LOCAL, enum: Object.values(EAuthStrategy) })
   auth_strategy: EAuthStrategy;
 
@@ -55,7 +53,7 @@ export class Customer extends User implements UserStrategy {
   @Prop({
     type: [
       {
-        ref: Hotel.name,
+        ref: ENTITY_NAME.HOTEL,
         type: MongooseSchema.Types.ObjectId
       }
     ],
@@ -66,27 +64,13 @@ export class Customer extends User implements UserStrategy {
   @Prop({
     type: [
       {
-        ref: Booking.name,
+        ref: ENTITY_NAME.BOOKING,
         type: MongooseSchema.Types.ObjectId
       }
     ],
     default: []
   })
   bookings_hotels: Types.ObjectId[] | Booking[];
-}
-
-export class UserContext {
-  private userStrategy: UserStrategy;
-
-  constructor(userStrategy: UserStrategy) {
-    this.userStrategy = userStrategy;
-  }
-
-  setStrategy(userStrategy: UserStrategy): void {
-    this.userStrategy = userStrategy;
-  }
-
-  handle(cb: Function): void {}
 }
 
 const AdminSchema = SchemaFactory.createForClass(Admin);

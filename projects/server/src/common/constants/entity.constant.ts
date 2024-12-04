@@ -9,5 +9,6 @@ export const ENTITY_NAME = {
   BOOKING: 'bookings',
   CANCELLATION_POLICY: 'cancellation_policies',
   PAYMENT: 'payments',
-  REVIEW: 'reviews'
+  REVIEW: 'reviews',
+  ASSET: 'assets'
 };

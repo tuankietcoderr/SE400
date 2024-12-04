@@ -13,7 +13,7 @@ import { User } from 'src/common/entities';
 import { IDataFilter, ITokenPayload } from 'src/common/interfaces';
 import { HashHelperService } from 'src/common/helpers';
 import { EAuthStrategy, ERole } from 'src/common/enum';
-import { AdminRegisterDto, CustomerRegisterDto, LoginDto } from './auth.dto';
+import { LoginDto, RegisterDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -55,39 +55,32 @@ export class AuthService {
     };
   }
 
-  async createAdmin(data: AdminRegisterDto) {
-    const { email, password } = data;
-    const user = await this.userService.getUserByEmail(email);
+  async createUser(data: RegisterDto) {
+    const { email, password, role, phone_number } = data;
+    const user = await this.userService.getUserByEmailOrPhone(email, phone_number);
 
     if (user) {
-      throw new ConflictException('Email đã tồn tại');
+      throw new ConflictException('Email/SĐT đã tồn tại');
     }
 
-    const newUser = await this.userService.createAdmin({
-      role: ERole.ADMIN,
-      ...data
-    });
+    let newUser: User;
+
+    switch (role) {
+      case ERole.ADMIN:
+        newUser = await this.userService.createAdmin(data);
+        break;
+      case ERole.CUSTOMER:
+        newUser = await this.userService.createCustomer(data);
+        break;
+      default:
+        throw new BadRequestException('Role không hợp lệ');
+    }
 
     const hashedPassword = await this.hashHelper.hashPassword(password);
 
     await this.credentialService.create({
       user: newUser,
       password: hashedPassword
-    });
-
-    const tokens = await this.signJwtToken(newUser);
-
-    return {
-      ...tokens,
-      user: newUser
-    };
-  }
-
-  async createCustomer(data: CustomerRegisterDto) {
-    const newUser = await this.userService.createCustomer({
-      role: ERole.CUSTOMER,
-      auth_strategy: EAuthStrategy.LOCAL,
-      ...data
     });
 
     const tokens = await this.signJwtToken(newUser);

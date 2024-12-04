@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsPhoneNumber, MinLength } from 'class-validator';
+import { ERole } from 'src/common/enum';
 
 export class LoginDto {
   @IsNotEmpty()
@@ -8,7 +9,7 @@ export class LoginDto {
   password: string;
 }
 
-export class AdminRegisterDto {
+export class RegisterDto {
   @IsNotEmpty()
   @IsEmail()
   email: string;
@@ -18,9 +19,15 @@ export class AdminRegisterDto {
   @IsNotEmpty()
   @MinLength(6)
   password: string;
-}
 
-export class CustomerRegisterDto {}
+  @IsNotEmpty()
+  @IsPhoneNumber('VN')
+  phone_number: string;
+
+  @IsNotEmpty()
+  @IsEnum(ERole)
+  role: ERole;
+}
 
 export class RefreshTokenDto {
   @IsNotEmpty()

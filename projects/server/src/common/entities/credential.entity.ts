@@ -7,7 +7,7 @@ export type CredentialDocument = HydratedDocument<Credential>;
 
 @Schema({ timestamps: true, collection: ENTITY_NAME.CREDENTIAL, autoCreate: true })
 export class Credential {
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name, required: true, index: true })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: ENTITY_NAME.USER, required: true, index: true })
   user: string | User;
 
   @Prop({ required: true })

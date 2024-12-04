@@ -41,6 +41,28 @@ export class UserService {
     return user;
   }
 
+  async getUserByPhoneOrThrow(phone: string) {
+    const user = await this.getUserByPhone(phone);
+
+    if (!user) {
+      throw new NotFoundException(`Không tìm thấy người dùng`);
+    }
+
+    return user;
+  }
+
+  async getUserByPhone(phone: string) {
+    const user = await this.userModel.findOne({ phone_number: phone });
+
+    return user;
+  }
+
+  async getUserByEmailOrPhone(email: string, phone: string) {
+    const user = await this.userModel.findOne({ email, phone_number: phone });
+
+    return user;
+  }
+
   async createUser(data: Partial<User>) {
     const user = await this.userModel.create(data);
 
