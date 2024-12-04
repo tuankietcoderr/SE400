@@ -1,19 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
+import React, { lazy, Suspense } from "react";
 import "./index.scss";
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+
+const BookingApp = lazy(() => import("booking_mf/BookingApp"));
 
 const App = () => (
-  <div className="mt-10 text-3xl mx-auto max-w-6xl">
-    <div>Name: container</div>
-    <div>Framework: react</div>
-    <div>Language: JavaScript</div>
-    <div>CSS: Tailwind</div>
+  <div>
+    <Header />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/*" element={<BookingApp />} />
+      </Routes>
+    </Suspense>
   </div>
 );
-const rootElement = document.getElementById("app")
-if (!rootElement) throw new Error("Failed to find the root element")
 
-const root = ReactDOM.createRoot(rootElement)
-
-root.render(<App />)
+export default App;
