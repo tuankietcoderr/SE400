@@ -33,6 +33,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10",
+    "axios": "^1.7.9",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.468.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.0.2"
