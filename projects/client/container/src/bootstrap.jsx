@@ -7,9 +7,7 @@ const rootElement = document.getElementById("app");
 const root = createRoot(rootElement);
 
 root.render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
