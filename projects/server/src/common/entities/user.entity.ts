@@ -4,7 +4,6 @@ import { ENTITY_NAME } from '../constants';
 import { Document, HydratedDocument, Types, Schema as MongooseSchema } from 'mongoose';
 import { Hotel } from './hotel.entity';
 import { Booking } from './booking.entity';
-import { Address } from './address.entity';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -15,7 +14,7 @@ export class User {
   @Prop({ default: ERole.CUSTOMER, enum: Object.values(ERole), index: true })
   role: ERole | string;
 
-  @Prop({ required: true, index: true })
+  @Prop({ required: true, index: true, unique: true })
   email: string;
 
   @Prop({ required: true })
@@ -24,7 +23,7 @@ export class User {
   @Prop({ default: EAuthStrategy.LOCAL, enum: Object.values(EAuthStrategy) })
   auth_strategy: EAuthStrategy;
 
-  @Prop({ required: true, index: true })
+  @Prop({ required: true, index: true, unique: true })
   phone_number: string;
 
   @Prop({

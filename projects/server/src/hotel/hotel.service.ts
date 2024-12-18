@@ -84,4 +84,12 @@ export class HotelService {
     }
     return hotel;
   }
+
+  async getTrendingHotels() {
+    return this.hotelModel.find({
+      rating: {
+        $gte: 4
+      }
+    }).limit(5);
+  }
 }

@@ -1,8 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { EAuthStrategy, ERole } from '../enum';
 import { ENTITY_NAME } from '../constants';
 import { Document, HydratedDocument, Types } from 'mongoose';
-import { Address } from '../types';
 
 export type AmentyDocument = HydratedDocument<Amenty>;
 

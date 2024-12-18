@@ -26,6 +26,9 @@ export class Hotel {
   @Prop({ default: 0 })
   rating: number;
 
+  @Prop({ default: 0 })
+  rating_count: number
+
   @Prop({
     type: [
       {
@@ -56,6 +59,9 @@ export class Hotel {
 
   @Prop({ default: [] })
   promotions: Promotion[];
+
+  @Prop({ default: 0 })
+  price: number;
 }
 
 export const HotelSchema = SchemaFactory.createForClass(Hotel);

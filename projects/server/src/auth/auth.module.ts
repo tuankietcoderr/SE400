@@ -8,7 +8,6 @@ import { AuthService } from './auth.service';
 import { HashHelperService } from 'src/common/helpers';
 import { JwtStrategy, LocalStrategy } from 'src/common/strategies';
 import { UserModule } from 'src/user/user.module';
-import { AddressService } from 'src/address/address.service';
 
 @Module({
   imports: [
@@ -24,6 +23,6 @@ import { AddressService } from 'src/address/address.service';
     CredentialModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, LocalStrategy, HashHelperService, AddressService]
+  providers: [AuthService, JwtStrategy, LocalStrategy, HashHelperService]
 })
 export class AuthModule {}

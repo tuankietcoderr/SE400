@@ -1,8 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
 import {
-  Address,
-  AddressSchema,
   Amenty,
   AmentySchema,
   Booking,
@@ -35,7 +33,6 @@ const MODELS: ModelDefinition[] = [
   { name: Booking.name, schema: BookingSchema },
   { name: Payment.name, schema: PaymentSchema },
   { name: Asset.name, schema: AssetSchema },
-  { name: Address.name, schema: AddressSchema }
 ];
 
 @Global()

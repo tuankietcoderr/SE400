@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AddressService } from 'src/address/address.service';
 import { User, UserDocument } from 'src/common/entities';
 import { CreateUserRequestDto } from './user.dto';
 
@@ -9,7 +8,6 @@ import { CreateUserRequestDto } from './user.dto';
 export class UserService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-    private readonly addressService: AddressService
   ) {}
 
   async getUsers() {
@@ -65,17 +63,9 @@ export class UserService {
   }
 
   async createUser(data: CreateUserRequestDto) {
-    const user = new this.userModel(data);
-
-    await this.addressService.create({
-      ...data.address,
-      user_id: user._id.toString()
-    });
-
-    await user.save();
-
-    return user;
+    return await this.userModel.create(data);
   }
+  
   async updateProfile(userId: string, data: any) {
     const user = await this.userModel.findByIdAndUpdate(userId, { $set: data }, { new: true });
     if (!user) {

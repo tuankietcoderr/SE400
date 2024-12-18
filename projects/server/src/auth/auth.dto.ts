@@ -1,6 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsPhoneNumber, MinLength } from 'class-validator';
 import { ERole } from 'src/common/enum';
-import { Address } from 'src/common/types';
 
 export class LoginDto {
   @IsNotEmpty()
@@ -28,8 +27,6 @@ export class RegisterDto {
   @IsNotEmpty()
   @IsEnum(ERole)
   role: ERole;
-
-  address: Address;
 }
 
 export class RefreshTokenDto {

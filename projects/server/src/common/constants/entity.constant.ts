@@ -7,9 +7,7 @@ export const ENTITY_NAME = {
   AMENTY: 'amenties',
   ROOM: 'rooms',
   BOOKING: 'bookings',
-  CANCELLATION_POLICY: 'cancellation_policies',
   PAYMENT: 'payments',
   REVIEW: 'reviews',
   ASSET: 'assets',
-  ADDRESS: 'addresses'
 };

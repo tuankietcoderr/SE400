@@ -1,6 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsPhoneNumber, MinLength } from 'class-validator';
 import { ERole } from 'src/common/enum';
-import { Address } from 'src/common/types';
 
 export class CreateUserRequestDto {
   @IsNotEmpty()
@@ -20,6 +19,4 @@ export class CreateUserRequestDto {
   @IsNotEmpty()
   @IsEnum(ERole)
   role: ERole;
-
-  address: Address;
 }
