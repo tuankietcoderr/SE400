@@ -1,11 +1,13 @@
+export type AddressCodeAndName = {
+  code: string;
+  name: string;
+};
+
 export type Address = {
-  street: string;
-  city: string;
-  district: string;
-  ward: string;
-  state: string;
-  country: string;
-  postal_code: string;
+  province: AddressCodeAndName;
+  district: AddressCodeAndName;
+  ward: AddressCodeAndName;
+  address: string;
 };
 
 export type Coordinates = {
@@ -13,11 +15,6 @@ export type Coordinates = {
   lng: number;
 };
 
-export type Location = {
-  address: string;
-  city: string;
-  state: string;
-  country: string;
-  postal_code: string;
+export type Location = Address & {
   coordinates: Coordinates;
 };

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Schema as MongooseSchema, Document } from 'mongoose';
 import { ENTITY_NAME } from '../constants';
-import { Admin, Customer, User } from './user.entity';
+import { User } from './user.entity';
 
 export type AssetDocument = Asset & Document<Types.ObjectId>;
 
@@ -28,7 +28,7 @@ export class Asset {
   originalFilename: string;
 
   @Prop({ required: true, index: true, type: MongooseSchema.Types.ObjectId, ref: ENTITY_NAME.USER })
-  uploader: string | Types.ObjectId | Admin | Customer;
+  uploader: string | Types.ObjectId | User;
 
   @Prop({ default: false })
   isAdminUpload: boolean;

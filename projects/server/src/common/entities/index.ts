@@ -7,3 +7,4 @@ export * from './review.entity';
 export * from './booking.entity';
 export * from './cancellation-policy.entity';
 export * from './payment.entity';
+export * from './address.entity';

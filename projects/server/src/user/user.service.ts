@@ -1,14 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Admin, AdminDocument, Customer, CustomerDocument, User, UserDocument } from 'src/common/entities';
+import { AddressService } from 'src/address/address.service';
+import { User, UserDocument } from 'src/common/entities';
+import { CreateUserRequestDto } from './user.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-    @InjectModel(Admin.name) private readonly adminModel: Model<AdminDocument>,
-    @InjectModel(Customer.name) private readonly customerModel: Model<CustomerDocument>
+    private readonly addressService: AddressService
   ) {}
 
   async getUsers() {
@@ -63,25 +64,23 @@ export class UserService {
     return user;
   }
 
-  async createUser(data: Partial<User>) {
-    const user = await this.userModel.create(data);
+  async createUser(data: CreateUserRequestDto) {
+    const user = new this.userModel(data);
+
+    await this.addressService.create({
+      ...data.address,
+      user_id: user._id.toString()
+    });
+
+    await user.save();
 
     return user;
   }
-
-  async createAdmin(data: Partial<Admin>) {
-    const admin = await this.adminModel.create(data);
-
-    return admin;
-  }
-
-  async newAdmin(data: Partial<Admin>) {
-    return new this.adminModel(data);
-  }
-
-  async createCustomer(data: Partial<Customer>) {
-    const customer = await this.customerModel.create(data);
-
-    return customer;
+  async updateProfile(userId: string, data: any) {
+    const user = await this.userModel.findByIdAndUpdate(userId, { $set: data }, { new: true });
+    if (!user) {
+      throw new NotFoundException(`Không tìm thấy người dùng`);
+    }
+    return user;
   }
 }

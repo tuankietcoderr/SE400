@@ -10,5 +10,6 @@ export const ENTITY_NAME = {
   CANCELLATION_POLICY: 'cancellation_policies',
   PAYMENT: 'payments',
   REVIEW: 'reviews',
-  ASSET: 'assets'
+  ASSET: 'assets',
+  ADDRESS: 'addresses'
 };

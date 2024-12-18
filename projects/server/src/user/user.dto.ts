@@ -2,15 +2,7 @@ import { IsEmail, IsEnum, IsNotEmpty, IsPhoneNumber, MinLength } from 'class-val
 import { ERole } from 'src/common/enum';
 import { Address } from 'src/common/types';
 
-export class LoginDto {
-  @IsNotEmpty()
-  @IsEmail()
-  email: string;
-  @IsNotEmpty()
-  password: string;
-}
-
-export class RegisterDto {
+export class CreateUserRequestDto {
   @IsNotEmpty()
   @IsEmail()
   email: string;
@@ -30,9 +22,4 @@ export class RegisterDto {
   role: ERole;
 
   address: Address;
-}
-
-export class RefreshTokenDto {
-  @IsNotEmpty()
-  refreshToken: string;
 }

@@ -6,6 +6,7 @@ import {
   HttpStatus,
   InternalServerErrorException,
   Post,
+  Put,
   Req,
   Res,
   UseGuards
@@ -32,6 +33,14 @@ export class AuthController {
   @Get('me')
   async currentUser(@CurrentUser() user: User) {
     return new SuccessResponse(user).setMessage('Thông tin người dùng');
+  }
+
+  @Put('me')
+  async updateProfile(@CurrentUser() user: User, @Body() data: any) {
+    console.log(data);
+    return new SuccessResponse(await this.authService.updateProfile(user._id.toString(), data)).setMessage(
+      'Cập nhật thông tin thành công'
+    );
   }
 
   @Public()

@@ -19,6 +19,7 @@ import { UploadModule } from './upload/upload.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { AssetModule } from './asset/asset.module';
+import { AddressModule } from './address/address.module';
 import * as multer from 'multer';
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import * as multer from 'multer';
     PaymentModule,
     UploadModule,
     CloudinaryModule,
-    AssetModule
+    AssetModule,
+    AddressModule
   ],
   controllers: [AppController],
   providers: [AppService, CredentialService]

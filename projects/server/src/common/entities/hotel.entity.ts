@@ -17,7 +17,10 @@ export class Hotel {
   @Prop({ required: true, index: true, enum: Object.values(HotelType) })
   type: HotelType;
 
-  @Prop({ required: true, type: Object })
+  @Prop({
+    required: true,
+    type: Object
+  })
   location: Location;
 
   @Prop({ default: 0 })

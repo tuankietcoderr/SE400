@@ -1,16 +1,14 @@
 import { Global, Module } from '@nestjs/common';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
 import {
-  Admin,
-  AdminSchema,
+  Address,
+  AddressSchema,
   Amenty,
   AmentySchema,
   Booking,
   BookingSchema,
   Credential,
   CredentialSchema,
-  Customer,
-  CustomerSchema,
   Hotel,
   HotelSchema,
   Payment,
@@ -27,11 +25,7 @@ import { Asset, AssetSchema } from '../entities/asset.entity';
 const MODELS: ModelDefinition[] = [
   {
     name: User.name,
-    schema: UserSchema,
-    discriminators: [
-      { name: Admin.name, schema: AdminSchema },
-      { name: Customer.name, schema: CustomerSchema }
-    ]
+    schema: UserSchema
   },
   { name: Credential.name, schema: CredentialSchema },
   { name: Amenty.name, schema: AmentySchema },
@@ -40,7 +34,8 @@ const MODELS: ModelDefinition[] = [
   { name: Review.name, schema: ReviewSchema },
   { name: Booking.name, schema: BookingSchema },
   { name: Payment.name, schema: PaymentSchema },
-  { name: Asset.name, schema: AssetSchema }
+  { name: Asset.name, schema: AssetSchema },
+  { name: Address.name, schema: AddressSchema }
 ];
 
 @Global()
