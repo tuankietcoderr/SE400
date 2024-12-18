@@ -72,6 +72,7 @@ module.exports = (_, argv) => ({
       exposes: {
         "./MarketingApp": "./src/bootstrap",
         "./banner": "./src/components/banner",
+        "./value": "./src/components/value",
       },
       shared: {
         ...deps,
