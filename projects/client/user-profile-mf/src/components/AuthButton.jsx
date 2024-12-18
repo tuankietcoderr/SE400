@@ -16,7 +16,7 @@ const AuthButton = () => {
           <Match when={!user()}>
             <a
               href="/user/login"
-              className="bg-white text-green-700 border px-4 py-2"
+              className="bg-white text-green-700 border px-4 py-2 hover:bg-green-700 hover:text-white transition-colors"
             >
               Đăng nhập
             </a>
@@ -40,7 +40,7 @@ const AuthButton = () => {
             </button>
           </Match>
           <Match when={!user()}>
-            <a href="/user/register" className="text-white px-4 py-2">
+            <a href="/user/register" className="text-green-700 px-4 py-2">
               Đăng ký
             </a>
           </Match>
