@@ -1,19 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React, { Suspense } from "react";
 
+import { Route, Routes } from "react-router-dom";
 import "./index.scss";
+import Home from "./pages/Home";
 
-const App = () => (
-  <div className="mt-10 text-3xl mx-auto max-w-6xl">
-    <div>Name: booking-mf</div>
-    <div>Framework: react</div>
-    <div>Language: JavaScript</div>
-    <div>CSS: Tailwind</div>
-  </div>
-);
-const rootElement = document.getElementById("app")
-if (!rootElement) throw new Error("Failed to find the root element")
+const App = () => {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/:hotelId" element={<div>Hello world id</div>} />
+      </Routes>
+    </>
+  );
+};
 
-const root = ReactDOM.createRoot(rootElement)
-
-root.render(<App />)
+export default App;
