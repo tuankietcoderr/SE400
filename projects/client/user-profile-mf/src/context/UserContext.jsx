@@ -20,7 +20,7 @@ export const UserProvider = (props) => {
   const logout = async () => {
     await instance.post("/auth/logout");
     localStorage.removeItem("accessToken");
-    window.location.href = "/login";
+    window.location.href = "/user/login";
   };
 
   const value = {
