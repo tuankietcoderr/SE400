@@ -67,6 +67,8 @@ module.exports = (_, argv) => ({
       remotes: {
         marketing_mf: "marketing_mf@http://localhost:8081/remoteEntry.js",
         user_profile_mf: "user_profile_mf@http://localhost:8082/remoteEntry.js",
+        review_mf: "review_mf@http://localhost:8084/remoteEntry.js",
+        payment_mf: "payment_mf@http://localhost:8085/remoteEntry.js",
       },
       exposes: {
         "./BookingApp": "./src/bootstrap",

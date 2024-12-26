@@ -13,9 +13,9 @@ const HotelCard = ({ hotel }) => {
           <h3 className="text-xl font-semibold line-clamp-2 flex-1">
             {hotel.name}
           </h3>
-          <button>
+          {/* <button>
             <Heart size={24} />
-          </button>
+          </button> */}
         </div>
         <div className="flex items-center gap-2 text-sm text-slate-400">
           <Star size={16} stroke="#FDBE02" fill="#FDBE02" />
@@ -26,7 +26,7 @@ const HotelCard = ({ hotel }) => {
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2 flex-1">
             <MapPin size={16} />
-            <p className="flex-1">{hotel.location.province}</p>
+            <p className="flex-1">{hotel.location.province.name}</p>
           </div>
           <div className="flex items-center gap-2 flex-1">
             <DoorOpen size={16} />

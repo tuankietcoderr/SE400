@@ -10,7 +10,6 @@ const SuggestHotels = () => {
       setHotels(res.data.data);
     });
   }, []);
-  console.log(hotels);
 
   return (
     <section className="mx-[5%] space-y-4">

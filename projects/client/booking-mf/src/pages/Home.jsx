@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div>
       <app-banner />
-      <div className="mt-8 flex gap-8 flex-col">
+      <div className="my-8 flex gap-8 flex-col">
         <SearchBar />
         <app-value />
         <SuggestHotels />
