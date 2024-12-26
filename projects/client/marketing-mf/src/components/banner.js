@@ -1,8 +1,11 @@
-import "../index.scss";
 import travelConcept from "../public/travel-concept.jpg";
+import "../index.scss";
 class Banner extends HTMLElement {
   constructor() {
     super();
+  }
+
+  connectedCallback() {
     this.innerHTML = /*html*/ `
       <div class="h-[80vh] justify-end flex items-start flex-col relative bg-gradient-to-t from-black to-transparent">
         <div class="bg-primary/80 w-full p-[5%]">

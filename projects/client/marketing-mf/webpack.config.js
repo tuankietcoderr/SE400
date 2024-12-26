@@ -70,7 +70,6 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        "./MarketingApp": "./src/bootstrap",
         "./banner": "./src/components/banner",
         "./value": "./src/components/value",
       },
