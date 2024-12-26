@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 const BookingApp = lazy(() => import("./pages/BookingApp"));
+const PaymentApp = lazy(() => import("./pages/PaymentApp"));
 const UserProfileApp = lazy(() => import("./pages/UserProfileApp"));
 const App = () => {
   return (
@@ -12,9 +13,10 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/*" element={<BookingApp />} />
+        <Route path="/payment/callback" element={<PaymentApp />} />
         <Route path="/user/*" element={<UserProfileApp />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

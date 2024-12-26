@@ -68,6 +68,7 @@ module.exports = (_, argv) => ({
         marketing_mf: "marketing_mf@http://localhost:8081/remoteEntry.js",
         user_profile_mf: "user_profile_mf@http://localhost:8082/remoteEntry.js",
         booking_mf: "booking_mf@http://localhost:8083/remoteEntry.js",
+        payment_mf: "payment_mf@http://localhost:8085/remoteEntry.js",
       },
       exposes: {},
       shared: {
