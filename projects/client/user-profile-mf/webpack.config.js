@@ -64,7 +64,9 @@ module.exports = (_, argv) => ({
     new ModuleFederationPlugin({
       name: "user_profile_mf",
       filename: "remoteEntry.js",
-      remotes: {},
+      remotes: {
+        review_mf: "review_mf@http://localhost:8084/remoteEntry.js",
+      },
       exposes: {
         "./UserProfileApp": "./src/bootstrap",
         "./authButtonMount": "./src/authButtonMount",

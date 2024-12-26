@@ -30,11 +30,15 @@ const Register = () => {
     }
   };
 
+  const googleLogin = async () => {
+    window.location.href = "http://localhost:8000/api/auth/google";
+  };
+
   return (
-    <div className="max-w-lg mx-auto my-4">
+    <div className="max-w-md mx-auto my-4">
       <h1 className="text-center font-semibold text-2xl">Đăng ký</h1>
       <form className="mt-4 space-y-4" onSubmit={onSubmit}>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <label htmlFor="name">Tên</label>
           <input
             type="text"
@@ -43,7 +47,7 @@ const Register = () => {
             required
           />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -52,7 +56,7 @@ const Register = () => {
             required
           />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <label htmlFor="phone_number">SĐT</label>
           <input
             type="tel"
@@ -61,7 +65,7 @@ const Register = () => {
             required
           />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <label htmlFor="password">Mật khẩu</label>
           <input
             type="password"
@@ -70,7 +74,7 @@ const Register = () => {
             required
           />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <label htmlFor="confirm_password">Xác thực mật khẩu</label>
           <input
             type="password"
@@ -79,10 +83,20 @@ const Register = () => {
             required
           />
         </div>
-        <div className="mt-4">
-          <button className="bg-green-500 text-white px-4 py-2">Đăng ký</button>
+        <div className="mt-4 space-y-2">
+          <button className="w-full bg-green-500 text-white px-4 py-2">
+            Đăng ký
+          </button>
+          <p className="text-xs text-center text-gray-500">hoặc</p>
+          <button
+            type="button"
+            onClick={googleLogin}
+            className="bg-white border text-black px-4 py-2 w-full"
+          >
+            Đăng ký với Google
+          </button>
         </div>
-        <p className="text-sm">
+        <p className="text-sm text-center">
           Bạn đã có tài khoản?{" "}
           <a href="/user/login" className="text-green-500">
             Đăng nhập ngay
