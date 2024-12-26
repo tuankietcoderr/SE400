@@ -7,21 +7,39 @@ import {
   InternalServerErrorException,
   Post,
   Put,
+  Redirect,
   Req,
   Res,
   UseGuards
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response, Request } from 'express';
 import { CurrentUser, Public } from 'src/common/decorators';
 import { User } from 'src/common/entities';
 import { LocalAuthGuard } from 'src/common/guards';
 import { SuccessResponse } from 'src/common/responses';
 import { RefreshTokenDto, RegisterDto } from './auth.dto';
 import { AuthService } from './auth.service';
+import { GoogleOAuthGuard } from 'src/common/guards/google-oauth.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Public()
+  @Get('google')
+  @UseGuards(GoogleOAuthGuard)
+  async googleAuth() {}
+
+  @Public()
+  @Get('google/callback')
+  @Redirect('http://localhost:8080/user/login/google/callback')
+  @UseGuards(GoogleOAuthGuard)
+  async googleAuthRedirect(@Req() req: Request) {
+    const data = await this.authService.googleLogin(req);
+    return {
+      url: `http://localhost:8080/user/login/google/callback?token=${data.accessToken}&refreshToken=${data.refreshToken}`
+    };
+  }
 
   @Public()
   @UseGuards(LocalAuthGuard)

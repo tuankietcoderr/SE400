@@ -2,6 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema, Types } from 'mongoose';
 import { ENTITY_NAME } from '../constants';
 import { EBookingStatus, EPaymentMethod, EPaymentStatus } from '../enum';
+import { Hotel } from './hotel.entity';
+import { Room } from './room.entity';
+import { User } from './user.entity';
+import { Payment } from './payment.entity';
 
 export type BookingDocument = HydratedDocument<Booking>;
 
@@ -9,21 +13,24 @@ export type BookingDocument = HydratedDocument<Booking>;
 export class Booking {
   _id: Types.ObjectId;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: ENTITY_NAME.HOTEL, required: true })
+  @Prop({ required: true, unique: true })
+  booking_id: string;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: Hotel.name, required: true })
   hotel_id: Types.ObjectId;
 
   @Prop({
     default: [],
     type: [
       {
-        ref: ENTITY_NAME.ROOM,
+        ref: Room.name,
         type: MongooseSchema.Types.ObjectId
       }
     ]
   })
   room_ids: Types.ObjectId[];
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: ENTITY_NAME.USER, required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: User.name, required: true })
   user_id: Types.ObjectId;
 
   @Prop({ required: true, default: new Date() })
@@ -38,11 +45,8 @@ export class Booking {
   @Prop({ default: EBookingStatus.PENDING, enum: Object.values(EBookingStatus) })
   status: EBookingStatus;
 
-  @Prop({ default: EPaymentStatus.PENDING, enum: Object.values(EPaymentStatus) })
-  payment_status: EPaymentStatus;
-
-  @Prop({ default: EPaymentMethod.CASH, enum: Object.values(EPaymentMethod) })
-  payment_method: EPaymentMethod;
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: Payment.name, default: null })
+  payment_id: Types.ObjectId;
 }
 
 export const BookingSchema = SchemaFactory.createForClass(Booking);

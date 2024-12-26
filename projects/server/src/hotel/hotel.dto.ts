@@ -24,7 +24,7 @@ export class CreateHotelRequestDto {
   @IsArray({
     message: 'Tiện ích phải là mảng'
   })
-  amenties: string[];
+  amenities: string[];
   @IsString({
     message: 'Mô tả phải là chuỗi'
   })
@@ -67,7 +67,7 @@ export class UpdateHotelRequestDto {
     message: 'Tiện ích phải là mảng'
   })
   @IsOptional()
-  amenties: string[];
+  amenities: string[];
   @IsString({
     message: 'Mô tả phải là chuỗi'
   })

@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsPhoneNumber, MinLength } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsPhoneNumber, MinLength, IsOptional } from 'class-validator';
 import { ERole } from 'src/common/enum';
 
 export class CreateUserRequestDto {
@@ -12,9 +12,9 @@ export class CreateUserRequestDto {
   @MinLength(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' })
   password: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsPhoneNumber('VN')
-  phone_number: string;
+  phone_number?: string;
 
   @IsNotEmpty()
   @IsEnum(ERole)

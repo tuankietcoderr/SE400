@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { HashHelperService } from 'src/common/helpers';
 import { JwtStrategy, LocalStrategy } from 'src/common/strategies';
 import { UserModule } from 'src/user/user.module';
+import { GoogleStrategy } from 'src/common/strategies/google.strategy';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { UserModule } from 'src/user/user.module';
     CredentialModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, LocalStrategy, HashHelperService]
+  providers: [AuthService, JwtStrategy, LocalStrategy, GoogleStrategy, HashHelperService]
 })
 export class AuthModule {}

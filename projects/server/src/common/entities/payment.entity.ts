@@ -3,6 +3,8 @@ import { EAuthStrategy, EPaymentMethod, EPaymentStatus, ERole } from '../enum';
 import { ENTITY_NAME } from '../constants';
 import { Document, HydratedDocument, Types, Schema as MongooseSchema } from 'mongoose';
 import { Address, RefundDetails } from '../types';
+import { Booking } from './booking.entity';
+import { User } from './user.entity';
 
 export type PaymentDocument = HydratedDocument<Payment>;
 
@@ -10,19 +12,19 @@ export type PaymentDocument = HydratedDocument<Payment>;
 export class Payment {
   _id: Types.ObjectId;
 
-  @Prop({ required: true, index: true, type: MongooseSchema.Types.ObjectId, ref: ENTITY_NAME.BOOKING })
+  @Prop({ required: true, index: true, type: MongooseSchema.Types.ObjectId, ref: 'Booking' })
   booking_id: Types.ObjectId;
 
-  @Prop({ required: true, index: true, type: MongooseSchema.Types.ObjectId, ref: ENTITY_NAME.USER })
+  @Prop({ required: true, index: true, type: MongooseSchema.Types.ObjectId, ref: User.name })
   user_id: Types.ObjectId;
 
   @Prop({ default: 0 })
-  amount: number;
+  total_price: number;
 
   @Prop({ required: true, enum: Object.values(EPaymentMethod), default: EPaymentMethod.CASH })
   payment_method: EPaymentMethod;
 
-  @Prop({ default: null })
+  @Prop({ default: new Date() })
   payment_date: Date | null;
 
   @Prop({ required: true, enum: Object.values(EPaymentStatus), default: EPaymentStatus.PENDING })

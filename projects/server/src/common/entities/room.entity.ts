@@ -28,9 +28,6 @@ export class Room {
   @Prop({ default: [] })
   images: string[];
 
-  @Prop({ default: [] })
-  avaiability: RoomAvailability[];
-
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: ENTITY_NAME.HOTEL,

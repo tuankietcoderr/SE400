@@ -6,9 +6,7 @@ import { CreateUserRequestDto } from './user.dto';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-  ) {}
+  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
 
   async getUsers() {
     return this.userModel.find();
@@ -57,7 +55,9 @@ export class UserService {
   }
 
   async getUserByEmailOrPhone(email: string, phone: string) {
-    const user = await this.userModel.findOne({ email, phone_number: phone });
+    const user = await this.userModel.findOne({
+      $or: [{ email }, { phone_number: phone }]
+    });
 
     return user;
   }
@@ -65,7 +65,7 @@ export class UserService {
   async createUser(data: CreateUserRequestDto) {
     return await this.userModel.create(data);
   }
-  
+
   async updateProfile(userId: string, data: any) {
     const user = await this.userModel.findByIdAndUpdate(userId, { $set: data }, { new: true });
     if (!user) {

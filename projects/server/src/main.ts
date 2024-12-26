@@ -8,6 +8,7 @@ import * as passport from 'passport';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { JwtAuthGuard } from './common/guards';
+import * as requestIp from 'request-ip';
 
 const signalsNames: NodeJS.Signals[] = ['SIGTERM', 'SIGINT', 'SIGHUP'];
 
@@ -26,6 +27,7 @@ async function bootstrap() {
   });
 
   app.use(passport.initialize());
+  app.use(requestIp.mw());
 
   app.setGlobalPrefix(apiPrefix);
   app.useGlobalPipes(new ValidationPipe());

@@ -1,25 +1,26 @@
 import { Module } from '@nestjs/common';
+import { MulterModule } from '@nestjs/platform-express';
+import * as multer from 'multer';
+import { AmenityModule } from './amenity/amenity.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModelsModule } from './common/config/mongoose.config';
+import { AssetModule } from './asset/asset.module';
+import { AuthModule } from './auth/auth.module';
+import { BookingModule } from './booking/booking.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { GlobalConfigModule } from './common/config/config.config';
 import { DatabaseModule } from './common/config/database.config';
-import { AuthModule } from './auth/auth.module';
-import { CredentialService } from './credential/credential.service';
+import { MongooseModelsModule } from './common/config/mongoose.config';
 import { CredentialModule } from './credential/credential.module';
-import { UserModule } from './user/user.module';
-import { LoggerModule } from './logger/logger.module';
+import { CredentialService } from './credential/credential.service';
 import { HotelModule } from './hotel/hotel.module';
-import { RoomModule } from './room/room.module';
-import { BookingModule } from './booking/booking.module';
-import { ReviewModule } from './review/review.module';
-import { AmentyModule } from './amenty/amenty.module';
+import { LoggerModule } from './logger/logger.module';
 import { PaymentModule } from './payment/payment.module';
+import { ReviewModule } from './review/review.module';
+import { RoomModule } from './room/room.module';
 import { UploadModule } from './upload/upload.module';
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
-import { MulterModule } from '@nestjs/platform-express';
-import { AssetModule } from './asset/asset.module';
-import * as multer from 'multer';
+import { UserModule } from './user/user.module';
+import { VnpayModule } from './vnpay/vnpay.module';
 @Module({
   imports: [
     MulterModule.register({
@@ -36,11 +37,12 @@ import * as multer from 'multer';
     RoomModule,
     BookingModule,
     ReviewModule,
-    AmentyModule,
+    AmenityModule,
     PaymentModule,
     UploadModule,
     CloudinaryModule,
     AssetModule,
+    VnpayModule
   ],
   controllers: [AppController],
   providers: [AppService, CredentialService]

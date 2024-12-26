@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Hotel, HotelDocument } from 'src/common/entities';
 import { CreateHotelRequestDto, UpdateHotelRequestDto } from './hotel.dto';
+import { Address } from 'src/common/types';
 
 @Injectable()
 export class HotelService {
@@ -15,35 +16,69 @@ export class HotelService {
   async getHotels() {
     return this.hotelModel.find({}, undefined, {
       populate: {
-        path: 'amenties',
+        path: 'amenities',
         select: 'name'
       }
     });
   }
 
-  async getHotelById(id: string) {
-    return await this.hotelModel.findById(id);
+  async getRelativeHotels(hotelId: string) {
+    const hotel = await this.getHotelByIdOrThrow(hotelId);
+
+    return this.hotelModel.find(
+      {
+        _id: {
+          $ne: hotelId
+        },
+        type: hotel.type
+      },
+      undefined,
+      {
+        populate: {
+          path: 'amenities',
+          select: 'name'
+        }
+      }
+    );
   }
 
-  async getHotelsByAmetyId(amentyId: string) {
+  async getHotelById(id: string) {
+    return await this.hotelModel.findById(
+      id,
+      {},
+      {
+        populate: [
+          {
+            path: 'amenities',
+            select: 'name'
+          },
+          {
+            path: 'rooms'
+          }
+        ]
+      }
+    );
+  }
+
+  async getHotelsByAmetyId(amenityId: string) {
     const hotels = await this.hotelModel.find({
-      amenties: {
-        $in: [amentyId]
+      amenities: {
+        $in: [amenityId]
       }
     });
     return hotels;
   }
 
-  async pullAmentyInHotelHavingAmentyId(amentyId: string) {
+  async pullAmenityInHotelHavingAmenityId(amenityId: string) {
     const hotels = await this.hotelModel.updateMany(
       {
-        amenties: {
-          $in: [amentyId]
+        amenities: {
+          $in: [amenityId]
         }
       },
       {
         $pull: {
-          amenties: amentyId
+          amenities: amenityId
         }
       },
       {
@@ -86,10 +121,29 @@ export class HotelService {
   }
 
   async getTrendingHotels() {
-    return this.hotelModel.find({
-      rating: {
-        $gte: 4
+    return this.hotelModel
+      .find({
+        rating: {
+          $gte: 4
+        }
+      })
+      .limit(5);
+  }
+
+  async searchHotels(address: Pick<Address, 'district' | 'province' | 'ward'>) {
+    return this.hotelModel.find(
+      {
+        'location.district.code': address.district,
+        'location.province.code': address.province,
+        'location.ward.code': address.ward
+      },
+      undefined,
+      {
+        populate: {
+          path: 'amenities',
+          select: 'name'
+        }
       }
-    }).limit(5);
+    );
   }
 }

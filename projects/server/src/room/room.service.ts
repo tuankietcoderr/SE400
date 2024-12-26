@@ -3,13 +3,23 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Room, RoomDocument } from 'src/common/entities';
 import { CreateRoomRequestDto, UpdateRoomRequestDto } from './room.dto';
+import { HotelService } from 'src/hotel/hotel.service';
 
 @Injectable()
 export class RoomService {
-  constructor(@InjectModel(Room.name) private readonly roomModel: Model<RoomDocument>) {}
+  constructor(
+    @InjectModel(Room.name) private readonly roomModel: Model<RoomDocument>,
+    private readonly hotelService: HotelService
+  ) {}
 
   async create(room: CreateRoomRequestDto) {
-    return this.roomModel.create(room);
+    const newRom = new this.roomModel(room);
+
+    const hotel = await this.hotelService.getHotelByIdOrThrow(room.hotel_id);
+    hotel.rooms.push(newRom._id);
+    await hotel.save();
+
+    return await newRom.save();
   }
 
   async findAll() {
@@ -53,6 +63,9 @@ export class RoomService {
     if (!room) {
       throw new NotFoundException('Không tìm thấy phòng');
     }
+    const hotel = await this.hotelService.getHotelByIdOrThrow(room.hotel_id.toString());
+    hotel.rooms = hotel.rooms.filter((roomId) => roomId.toString() !== id);
+    await hotel.save();
     return room;
   }
 }

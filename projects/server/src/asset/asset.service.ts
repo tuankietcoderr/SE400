@@ -33,15 +33,7 @@ export class AssetService {
     return asset;
   }
 
-  public async getAssetsPaginate({ page = 1, limit = 10 }: { page: number; limit: number }) {
-    return await this.assetModel
-      .find()
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .exec();
-  }
-
-  public async totalDocuments() {
-    return await this.assetModel.countDocuments();
+  public async getAllAdminAssets() {
+    return await this.assetModel.find({ isAdminUpload: true });
   }
 }

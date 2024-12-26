@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ENTITY_NAME } from '../constants';
 import { Document, HydratedDocument, Types } from 'mongoose';
 
-export type AmentyDocument = HydratedDocument<Amenty>;
+export type AmenityDocument = HydratedDocument<Amenity>;
 
 @Schema({ timestamps: true, collection: ENTITY_NAME.AMENTY, autoCreate: true })
-export class Amenty {
+export class Amenity {
   _id: Types.ObjectId;
 
   @Prop({ required: true })
@@ -15,4 +15,4 @@ export class Amenty {
   description: string | null;
 }
 
-export const AmentySchema = SchemaFactory.createForClass(Amenty);
+export const AmenitySchema = SchemaFactory.createForClass(Amenity);

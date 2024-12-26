@@ -1,7 +1,6 @@
 export enum EPaymentMethod {
   CASH = 'cash',
-  CARD = 'card',
-  E_WALLET = 'e_wallet'
+  ONLINE_BANKING = 'online_banking'
 }
 export enum EPaymentStatus {
   PENDING = 'pending',

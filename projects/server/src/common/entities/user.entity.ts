@@ -23,7 +23,7 @@ export class User {
   @Prop({ default: EAuthStrategy.LOCAL, enum: Object.values(EAuthStrategy) })
   auth_strategy: EAuthStrategy;
 
-  @Prop({ required: true, index: true, unique: true })
+  @Prop({ index: true, unique: true, default: null })
   phone_number: string;
 
   @Prop({

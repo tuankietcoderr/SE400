@@ -13,7 +13,26 @@ export class ReviewService {
   }
 
   async findAll() {
-    return await this.reviewModel.find();
+    return await this.reviewModel.find(
+      {},
+      {},
+      {
+        populate: [
+          {
+            path: 'user_id',
+            select: 'name'
+          },
+          {
+            path: 'hotel_id',
+            select: 'name'
+          },
+          {
+            path: 'room_id',
+            select: 'name'
+          }
+        ]
+      }
+    );
   }
 
   async findById(id: string) {
@@ -29,11 +48,37 @@ export class ReviewService {
   }
 
   async findByUserId(userId: string) {
-    return await this.reviewModel.find({ user_id: userId });
+    return await this.reviewModel.find({ user_id: userId }, undefined, {
+      populate: [
+        {
+          path: 'user_id',
+          select: 'name'
+        },
+        {
+          path: 'room_id',
+          select: 'name price'
+        }
+      ]
+    });
   }
 
   async findByHotelId(hotelId: string) {
-    return await this.reviewModel.find({ hotel_id: hotelId });
+    return await this.reviewModel.find(
+      { hotel_id: hotelId },
+      {},
+      {
+        populate: [
+          {
+            path: 'user_id',
+            select: 'name'
+          },
+          {
+            path: 'room_id',
+            select: 'name price'
+          }
+        ]
+      }
+    );
   }
 
   async findByRoomId(roomId: string) {

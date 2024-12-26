@@ -4,10 +4,10 @@ export const ENTITY_NAME = {
   ADMIN: 'admins',
   CUSTOMER: 'customers',
   HOTEL: 'hotels',
-  AMENTY: 'amenties',
+  AMENTY: 'amenities',
   ROOM: 'rooms',
   BOOKING: 'bookings',
   PAYMENT: 'payments',
   REVIEW: 'reviews',
-  ASSET: 'assets',
+  ASSET: 'assets'
 };

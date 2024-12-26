@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, MinLength } from 'class-validator';
 
-export class CreateAmentyRequestDto {
+export class CreateAmenityRequestDto {
   @IsNotEmpty({
     message: 'Tên tiện ích không được để trống'
   })
@@ -11,7 +11,7 @@ export class CreateAmentyRequestDto {
   description: string;
 }
 
-export class UpdateAmentyRequestDto {
+export class UpdateAmenityRequestDto {
   @MinLength(2, {
     message: 'Tên tiện ích phải có ít nhất 2 ký tự'
   })

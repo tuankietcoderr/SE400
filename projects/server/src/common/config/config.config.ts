@@ -15,7 +15,14 @@ import * as Joi from 'joi';
 
         CLOUDINARY_CLOUD_NAME: Joi.string().required(),
         CLOUDINARY_API_KEY: Joi.string().required(),
-        CLOUDINARY_API_SECRET: Joi.string().required()
+        CLOUDINARY_API_SECRET: Joi.string().required(),
+
+        VNPAY_TMN_CODE: Joi.string().required(),
+        VNPAY_HASH_SECRET: Joi.string().required(),
+        VNPAY_RETURN_URL: Joi.string().required(),
+
+        GOOGLE_CLIENT_ID: Joi.string().required(),
+        GOOGLE_CLIENT_SECRET: Joi.string().required()
       }),
       isGlobal: true
     })

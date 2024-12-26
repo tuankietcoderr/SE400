@@ -3,7 +3,8 @@ import { HydratedDocument, Schema as MongooseSchema, Types } from 'mongoose';
 import { ENTITY_NAME } from '../constants';
 import { HotelType } from '../enum';
 import { Location, Promotion } from '../types';
-import { Amenty } from './amenty.entity';
+import { Amenity } from './amenity.entity';
+import { Room } from './room.entity';
 
 export type HotelDocument = HydratedDocument<Hotel>;
 
@@ -27,18 +28,18 @@ export class Hotel {
   rating: number;
 
   @Prop({ default: 0 })
-  rating_count: number
+  rating_count: number;
 
   @Prop({
     type: [
       {
-        ref: Amenty.name,
+        ref: Amenity.name,
         type: MongooseSchema.Types.ObjectId
       }
     ],
     default: []
   })
-  amenties: Types.ObjectId[];
+  amenities: Types.ObjectId[];
 
   @Prop({ required: true })
   description: string;
@@ -50,7 +51,7 @@ export class Hotel {
     default: [],
     type: [
       {
-        ref: ENTITY_NAME.ROOM,
+        ref: Room.name,
         type: MongooseSchema.Types.ObjectId
       }
     ]

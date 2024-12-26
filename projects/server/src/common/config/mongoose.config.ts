@@ -1,8 +1,8 @@
 import { Global, Module } from '@nestjs/common';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
 import {
-  Amenty,
-  AmentySchema,
+  Amenity,
+  AmenitySchema,
   Booking,
   BookingSchema,
   Credential,
@@ -26,13 +26,13 @@ const MODELS: ModelDefinition[] = [
     schema: UserSchema
   },
   { name: Credential.name, schema: CredentialSchema },
-  { name: Amenty.name, schema: AmentySchema },
+  { name: Amenity.name, schema: AmenitySchema },
   { name: Room.name, schema: RoomSchema },
   { name: Hotel.name, schema: HotelSchema },
   { name: Review.name, schema: ReviewSchema },
   { name: Booking.name, schema: BookingSchema },
   { name: Payment.name, schema: PaymentSchema },
-  { name: Asset.name, schema: AssetSchema },
+  { name: Asset.name, schema: AssetSchema }
 ];
 
 @Global()

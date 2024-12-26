@@ -8,6 +8,7 @@ import { ITokenPayload } from 'src/common/interfaces';
 import { CredentialService } from 'src/credential/credential.service';
 import { UserService } from 'src/user/user.service';
 import { LoginDto, RegisterDto } from './auth.dto';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -75,7 +76,11 @@ export class AuthService {
   }
 
   async validateUser(data: LoginDto) {
-    const user = await this.userService.getUserByEmailOrThrow(data.email);
+    const user = await this.userService.getUserByEmailOrPhone(data.email, data.email);
+
+    if (!user) {
+      throw new BadRequestException('Email/SĐT không tồn tại');
+    }
 
     const credential = await this.credentialService.findByUserId(user._id);
 
@@ -107,5 +112,38 @@ export class AuthService {
 
   async updateProfile(userId: string, data: any) {
     return await this.userService.updateProfile(userId, data);
+  }
+
+  async googleLogin(req: Request) {
+    const googleUser = req.user as User;
+
+    if (!googleUser) {
+      throw new UnauthorizedException('Không thể đăng nhập bằng Google');
+    }
+
+    const user = await this.userService.getUserByEmail(googleUser.email);
+
+    if (!user) {
+      const newUser = await this.userService.createUser({
+        email: googleUser.email,
+        name: googleUser.name,
+        role: ERole.CUSTOMER,
+        password: await this.hashHelper.generateRandomString(10)
+      });
+
+      const tokens = await this.signJwtToken(newUser);
+
+      return {
+        ...tokens,
+        user: newUser
+      };
+    }
+
+    const tokens = await this.signJwtToken(user);
+
+    return {
+      ...tokens,
+      user
+    };
   }
 }

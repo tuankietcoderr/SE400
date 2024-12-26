@@ -1,18 +1,33 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { HotelService } from './hotel.service';
 import { SuccessResponse } from 'src/common/responses';
 import { Public, Roles } from 'src/common/decorators';
 import { ERole } from 'src/common/enum';
 import { CreateHotelRequestDto, UpdateHotelRequestDto } from './hotel.dto';
+import { Address } from 'src/common/types';
 
 @Controller('hotel')
 export class HotelController {
   constructor(private readonly hotelService: HotelService) {}
 
   @Public()
+  @Get('/search')
+  async searchHotels(@Query() payload: Pick<Address, 'district' | 'province' | 'ward'>) {
+    return new SuccessResponse(await this.hotelService.searchHotels(payload)).setMessage('Danh sách khách sạn');
+  }
+
+  @Public()
   @Get()
   async getHotels() {
     return new SuccessResponse(await this.hotelService.getHotels()).setMessage('Danh sách khách sạn');
+  }
+
+  @Public()
+  @Get(':id/relative')
+  async getRelativeHotels(@Param('id') id: string) {
+    return new SuccessResponse(await this.hotelService.getRelativeHotels(id)).setMessage(
+      'Danh sách khách sạn liên quan'
+    );
   }
 
   @Public()

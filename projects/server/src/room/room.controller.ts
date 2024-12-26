@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { RoomService } from './room.service';
-import { Roles } from 'src/common/decorators';
+import { Public, Roles } from 'src/common/decorators';
 import { ERole } from 'src/common/enum';
 import { CreateRoomRequestDto, UpdateRoomRequestDto } from './room.dto';
 import { SuccessResponse } from 'src/common/responses';
@@ -23,11 +23,13 @@ export class RoomController {
     return new SuccessResponse(await this.roomService.findAll());
   }
 
+  @Public()
   @Get(':id')
   async findById(@Param('id') id: string) {
     return new SuccessResponse(await this.roomService.findById(id));
   }
 
+  @Public()
   @Get('hotel/:hotelId')
   async findByHotelId(@Param('hotelId') hotelId: string) {
     return new SuccessResponse(await this.roomService.findByHotelId(hotelId));

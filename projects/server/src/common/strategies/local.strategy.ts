@@ -17,7 +17,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     });
 
     if (!user) {
-      throw new UnauthorizedException('Email hoặc mật khẩu không chính xác');
+      throw new UnauthorizedException('Email/SĐT hoặc mật khẩu không chính xác');
     }
     return user;
   }
