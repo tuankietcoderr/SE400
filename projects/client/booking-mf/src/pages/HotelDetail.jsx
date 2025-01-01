@@ -67,7 +67,7 @@ const HotelDetail = () => {
           className="w-full h-[30rem] flex-1 object-cover bg-slate-100/50"
         />
       </div>
-      <div className="mx-[5%] my-8">
+      <div className="mx-[5%] my-8 space-y-8">
         <div className="flex gap-8">
           <div className="space-y-8 w-full">
             <div className="space-y-2">
@@ -166,7 +166,6 @@ const HotelDetail = () => {
               <h2 className="text-2xl font-semibold mb-2">Đánh giá</h2>
               <review-list hotelId={hotelId} />
             </div>
-            <RecommendHotels hotelId={hotelId} />
           </div>
           <div className="max-w-md w-full bg-gray-50 p-4 space-y-4 h-fit">
             <section className="space-y-2">
@@ -259,6 +258,7 @@ const HotelDetail = () => {
             />
           </div>
         </div>
+        <RecommendHotels hotelId={hotelId} />
       </div>
     </div>
   );
