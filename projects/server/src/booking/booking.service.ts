@@ -16,6 +16,7 @@ export class BookingService {
 
   async create(payload: CreateBookingRequestDto) {
     const bookingId = `BK${dayjs().format('YYYYMMDDHHmmss')}`;
+    console.log('bookingId', payload);
 
     const booking = new this.bookingModel({
       ...payload,

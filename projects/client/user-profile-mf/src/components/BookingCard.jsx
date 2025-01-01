@@ -51,13 +51,13 @@ const BookingCard = ({ booking, refetch }) => {
         <div className="flex items-center gap-4">
           <CalendarArrowUp size={16} class="text-gray-500" />
           <p className="text-sm text-gray-500">
-            {new Date(booking.check_in_date).toLocaleString()}
+            {new Date(booking.check_in_date).toLocaleDateString()}
           </p>
         </div>
         <div className="flex items-center gap-4">
           <CalendarArrowDown size={16} class="text-gray-500" />
           <p className="text-sm text-gray-500">
-            {new Date(booking.check_in_date).toLocaleString()}
+            {new Date(booking.check_out_date).toLocaleDateString()}
           </p>
         </div>
         <div className="flex items-center gap-4">

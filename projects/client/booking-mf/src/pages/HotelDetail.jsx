@@ -57,8 +57,6 @@ const HotelDetail = () => {
       ].join(", ")
     : "";
 
-  console.log(hotel?.rating);
-
   return !hotel ? (
     <div>Đang tải...</div>
   ) : (
