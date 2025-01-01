@@ -1,5 +1,6 @@
 'use client';
 import {useDeletePaymentMutation} from '@/services/payment';
+import {formatCurrency} from '@/utils/formatter';
 import {
   Button,
   Popover,
@@ -44,12 +45,16 @@ const RenderCellTransaction = ({transaction, columnKey}: Props) => {
   const user = transaction.user_id;
 
   switch (columnKey as TransactionColumnKey) {
+    case 'total_price':
+      return <p className="w-max">{formatCurrency(transaction.total_price)}</p>;
     case 'booking_id':
       return <p className="w-max">{booking?.booking_id || '-'}</p>;
     case 'payment_date':
       return (
         <p className="w-max">
-          {format(new Date(transaction.payment_date || ''), 'dd/MM/yyyy')}
+          {transaction.payment_date
+            ? format(new Date(transaction.payment_date), 'dd/MM/yyyy')
+            : '-'}
         </p>
       );
     case 'user_id':

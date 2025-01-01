@@ -1,5 +1,6 @@
 'use client';
 import {useDeleteBookingMutation} from '@/services/booking';
+import {formatCurrency} from '@/utils/formatter';
 import {
   Button,
   Popover,
@@ -46,6 +47,8 @@ const RenderCellBooking = ({booking, columnKey}: Props) => {
   const payment = booking.payment_id;
 
   switch (columnKey as BookingColumnKey) {
+    case 'total_price':
+      return <p className="w-max">{formatCurrency(booking.total_price)}</p>;
     case 'check_in_date':
       return format(new Date(booking.check_in_date || ''), 'dd/MM/yyyy');
     case 'check_out_date':
