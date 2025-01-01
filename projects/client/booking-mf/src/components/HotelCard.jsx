@@ -24,7 +24,9 @@ const HotelCard = ({ hotel }) => {
         </div>
         <div className="flex items-center gap-2 text-sm text-slate-400">
           <Wifi size={16} />
-          {hotel.amenities.map((amenity) => amenity.name).join(", ")}
+          <p className="flex-1">
+            {hotel.amenities.map((amenity) => amenity.name).join(", ")}
+          </p>
         </div>
         <div className="flex items-center gap-2 text-sm text-slate-400">
           <MapPin size={16} className="mb-1" />
