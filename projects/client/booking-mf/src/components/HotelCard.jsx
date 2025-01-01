@@ -24,9 +24,9 @@ const HotelCard = ({ hotel }) => {
               <p>{hotel.rating > 0 ? hotel.rating.toFixed(2) : 0}/5</p>
               <p>{hotel.rating_count} đánh giá</p>
             </div>
-            <div className="flex items-center gap-2 text-sm text-slate-400">
+            <div className="flex gap-2 text-sm text-slate-400">
               <Wifi size={16} />
-              <p className="flex-1">
+              <p className="flex-1 line-clamp-2">
                 {hotel.amenities.map((amenity) => amenity.name).join(", ")}
               </p>
             </div>
