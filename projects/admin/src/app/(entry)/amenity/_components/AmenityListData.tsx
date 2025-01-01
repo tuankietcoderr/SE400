@@ -18,8 +18,8 @@ const AmenityListData = () => {
     [data, page],
   );
 
-  const fetchNext = useCallback((query: any = {}) => {
-    setPage(page => page + 1);
+  const fetchNext = useCallback((p: number) => {
+    setPage(p);
   }, []);
 
   const onClickCreate = () => {
