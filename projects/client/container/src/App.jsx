@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 const BookingApp = lazy(() => import("./pages/BookingApp"));
 const PaymentApp = lazy(() => import("./pages/PaymentApp"));
 const UserProfileApp = lazy(() => import("./pages/UserProfileApp"));
+
 const App = () => {
   return (
     <div>
