@@ -24,16 +24,19 @@ const mount = (el) => {
         `;
       return;
     }
-    fetch(`http://localhost:8000/api/payment/${info}/status`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify({
-        status: "success",
-      }),
-    })
+    fetch(
+      `https://se400-production.up.railway.app/api/payment/${info}/status`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({
+          status: "success",
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

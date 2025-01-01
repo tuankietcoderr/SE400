@@ -31,7 +31,8 @@ const Register = () => {
   };
 
   const googleLogin = async () => {
-    window.location.href = "http://localhost:8000/api/auth/google";
+    window.location.href =
+      "https://se400-production.up.railway.app/api/auth/google";
   };
 
   return (

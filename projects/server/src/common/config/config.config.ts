@@ -22,7 +22,8 @@ import * as Joi from 'joi';
         VNPAY_RETURN_URL: Joi.string().required(),
 
         GOOGLE_CLIENT_ID: Joi.string().required(),
-        GOOGLE_CLIENT_SECRET: Joi.string().required()
+        GOOGLE_CLIENT_SECRET: Joi.string().required(),
+        CLIENT_REDIRECT_URL: Joi.string().required()
       }),
       isGlobal: true
     })

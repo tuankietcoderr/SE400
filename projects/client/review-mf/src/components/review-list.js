@@ -7,7 +7,11 @@ class ReviewList extends HTMLElement {
 
   connectedCallback() {
     this.#_hotelId = this.getAttribute("hotelId");
-    fetch(`http://localhost:8000/api/review/hotel/${this.#_hotelId}`)
+    fetch(
+      `https://se400-production.up.railway.app/api/review/hotel/${
+        this.#_hotelId
+      }`
+    )
       .then((res) => res.json())
       .then((data) => {
         this.innerHTML = /*html*/ `

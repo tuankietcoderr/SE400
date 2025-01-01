@@ -100,14 +100,17 @@ class ReviewButton extends HTMLElement {
         return;
       }
       try {
-        const res = await fetch(`http://localhost:8000/api/review`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-          body: JSON.stringify(data),
-        });
+        const res = await fetch(
+          `https://se400-production.up.railway.app/api/review`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify(data),
+          }
+        );
         const resData = await res.json();
         if (resData.success) {
           alert("Đánh giá thành công");

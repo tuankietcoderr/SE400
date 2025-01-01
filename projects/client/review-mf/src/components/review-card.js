@@ -42,7 +42,7 @@ class ReviewCard extends HTMLElement {
 
     removeRvBtn.addEventListener("click", async () => {
       const res = await fetch(
-        `http://localhost:8000/api/review/${review._id}`,
+        `https://se400-production.up.railway.app/api/review/${review._id}`,
         {
           method: "DELETE",
           headers: {

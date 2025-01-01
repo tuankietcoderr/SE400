@@ -32,12 +32,12 @@ export class AuthController {
 
   @Public()
   @Get('google/callback')
-  @Redirect('http://localhost:8080/user/login/google/callback')
+  @Redirect(process.env.CLIENT_REDIRECT_URL)
   @UseGuards(GoogleOAuthGuard)
   async googleAuthRedirect(@Req() req: Request) {
     const data = await this.authService.googleLogin(req);
     return {
-      url: `http://localhost:8080/user/login/google/callback?token=${data.accessToken}&refreshToken=${data.refreshToken}`
+      url: `${process.env.CLIENT_REDIRECT_URL}?token=${data.accessToken}&refreshToken=${data.refreshToken}`
     };
   }
 

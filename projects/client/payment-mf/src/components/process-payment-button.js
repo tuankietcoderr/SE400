@@ -22,14 +22,17 @@ class ProcessPaymentButton extends HTMLElement {
 
       const paymentMethod = this.#data.payment_method;
 
-      fetch(`http://localhost:8000/api/payment/create/${paymentMethod}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify(this.#data),
-      })
+      fetch(
+        `https://se400-production.up.railway.app/api/payment/create/${paymentMethod}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify(this.#data),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
