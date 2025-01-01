@@ -12,7 +12,7 @@ const Search = () => {
   const district = searchParams.get("district");
   const province = searchParams.get("province");
 
-  const [hotels, setHotels] = useState([]);
+  const [hotels, setHotels] = useState(null);
   const [amenities, setAmenities] = useState([]);
 
   const {
@@ -42,9 +42,11 @@ const Search = () => {
         params: searchParams,
       })
       .then((res) => {
-        setHotels(res.data.data);
+        setHotels(res.data.data || []);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setHotels([]);
+      });
   }, [searchParams.toString()]);
 
   useEffect(() => {
