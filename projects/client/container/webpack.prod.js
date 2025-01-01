@@ -16,10 +16,10 @@ const prodConfig = {
     new ModuleFederationPlugin({
       name: "container",
       remotes: {
-        marketing_mf: `marketing_mf@${domain}/marketing/remoteEntry.js`,
-        user_profile_mf: `user_profile_mf@${domain}/user-profile/remoteEntry.js`,
-        booking_mf: `booking_mf@${domain}/booking/remoteEntry.js`,
-        payment_mf: `payment_mf@${domain}/payment/remoteEntry.js`,
+        marketing_mf: `marketing_mf@${domain}/marketing/latest/remoteEntry.js`,
+        user_profile_mf: `user_profile_mf@${domain}/user-profile/latest/remoteEntry.js`,
+        booking_mf: `booking_mf@${domain}/booking/latest/remoteEntry.js`,
+        payment_mf: `payment_mf@${domain}/payment/latest/remoteEntry.js`,
       },
       shared: {
         ...deps,
