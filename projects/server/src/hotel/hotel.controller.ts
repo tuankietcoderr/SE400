@@ -3,7 +3,7 @@ import { HotelService } from './hotel.service';
 import { SuccessResponse } from 'src/common/responses';
 import { Public, Roles } from 'src/common/decorators';
 import { ERole } from 'src/common/enum';
-import { CreateHotelRequestDto, UpdateHotelRequestDto } from './hotel.dto';
+import { CreateHotelRequestDto, SearchHotelQueryDto, UpdateHotelRequestDto } from './hotel.dto';
 import { Address } from 'src/common/types';
 
 @Controller('hotel')
@@ -12,7 +12,7 @@ export class HotelController {
 
   @Public()
   @Get('/search')
-  async searchHotels(@Query() payload: Pick<Address, 'district' | 'province' | 'ward'>) {
+  async searchHotels(@Query() payload: SearchHotelQueryDto) {
     return new SuccessResponse(await this.hotelService.searchHotels(payload)).setMessage('Danh sách khách sạn');
   }
 

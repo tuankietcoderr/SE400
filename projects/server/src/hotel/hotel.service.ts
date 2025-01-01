@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Hotel, HotelDocument } from 'src/common/entities';
-import { CreateHotelRequestDto, UpdateHotelRequestDto } from './hotel.dto';
+import { CreateHotelRequestDto, SearchHotelQueryDto, UpdateHotelRequestDto } from './hotel.dto';
 import { Address } from 'src/common/types';
 
 @Injectable()
@@ -130,19 +130,163 @@ export class HotelService {
       .limit(5);
   }
 
-  async searchHotels(address: Pick<Address, 'district' | 'province' | 'ward'>) {
+  async searchHotels(query: SearchHotelQueryDto) {
+    const price = query.price ? query.price.split('-') : undefined;
+    const sort = query.sort ? query.sort.split('_') : undefined;
+    const sortVal = {
+      asc: 1,
+      desc: -1
+    };
+    console.log(':QUERY', [
+      ...(query.keyword
+        ? [
+            {
+              name: {
+                $regex: query.keyword,
+                $options: 'i'
+              }
+            }
+          ]
+        : []),
+      ...(query.district
+        ? [
+            {
+              'location.district.code': query.district
+            }
+          ]
+        : []),
+      ...(query.province
+        ? [
+            {
+              'location.province.code': query.province
+            }
+          ]
+        : []),
+      ...(query.ward
+        ? [
+            {
+              'location.ward.code': query.ward
+            }
+          ]
+        : []),
+      ...(query.type && query.type.length > 0
+        ? [
+            {
+              type: {
+                $in: query.type
+              }
+            }
+          ]
+        : []),
+      ...(query.star
+        ? [
+            {
+              rating: {
+                $in: query.star
+              }
+            }
+          ]
+        : []),
+      ...(query.amenity && query.amenity.length > 0
+        ? [
+            {
+              amenities: {
+                $in: query.amenity
+              }
+            }
+          ]
+        : []),
+      ...(price
+        ? [
+            {
+              price: {
+                $gte: price ? Number(price[0]) : 0,
+                $lte: price ? Number(price[1]) || 100000000 : 100000000
+              }
+            }
+          ]
+        : [])
+    ]);
     return this.hotelModel.find(
       {
-        'location.district.code': address.district,
-        'location.province.code': address.province,
-        'location.ward.code': address.ward
+        $and: [
+          ...(query.keyword
+            ? [
+                {
+                  name: {
+                    $regex: query.keyword,
+                    $options: 'i'
+                  }
+                }
+              ]
+            : []),
+          ...(query.district
+            ? [
+                {
+                  'location.district.code': query.district
+                }
+              ]
+            : []),
+          ...(query.province
+            ? [
+                {
+                  'location.province.code': query.province
+                }
+              ]
+            : []),
+          ...(query.ward
+            ? [
+                {
+                  'location.ward.code': query.ward
+                }
+              ]
+            : []),
+          ...(query.type && query.type.length > 0
+            ? [
+                {
+                  type: {
+                    $in: query.type
+                  }
+                }
+              ]
+            : []),
+          ...(query.star
+            ? [
+                {
+                  rating: {
+                    $in: query.star
+                  }
+                }
+              ]
+            : []),
+          ...(query.amenity && query.amenity.length > 0
+            ? [
+                {
+                  amenities: {
+                    $in: query.amenity
+                  }
+                }
+              ]
+            : []),
+          ...(price
+            ? [
+                {
+                  price: {
+                    $gte: price ? Number(price[0]) : 0,
+                    $lte: price ? Number(price[1]) || 100000000 : 100000000
+                  }
+                }
+              ]
+            : [])
+        ]
       },
       undefined,
       {
         populate: {
           path: 'amenities',
           select: 'name'
-        }
+        },
+        sort: sort ? { [sort[0]]: sortVal[sort[1]] } : undefined
       }
     );
   }

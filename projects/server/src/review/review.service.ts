@@ -15,7 +15,7 @@ export class ReviewService {
   async create(payload: CreateReviewRequestDto) {
     const hotel = await this.hotelService.getHotelByIdOrThrow(payload.hotel_id);
     hotel.rating_count += 1;
-    hotel.rating = (hotel.rating * (hotel.rating_count - 1) + payload.rating) / hotel.rating_count;
+    hotel.rating = Math.round((hotel.rating * (hotel.rating_count - 1) + payload.rating) / hotel.rating_count);
     await hotel.save();
     return await this.reviewModel.create(payload);
   }
