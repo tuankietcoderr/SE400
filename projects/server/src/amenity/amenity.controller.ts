@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { AmenityService } from './amenity.service';
-import { Roles } from 'src/common/decorators';
+import { Public, Roles } from 'src/common/decorators';
 import { ERole } from 'src/common/enum';
 import { SuccessResponse } from 'src/common/responses';
 import { CreateAmenityRequestDto, UpdateAmenityRequestDto } from './amenity.dto';
@@ -15,7 +15,7 @@ export class AmenityController {
     return new SuccessResponse(await this.amenityService.createAmenity(body)).setMessage('Tạo tiện ích thành công');
   }
 
-  @Roles([ERole.ADMIN])
+  @Public()
   @Get()
   async getAmenities() {
     return new SuccessResponse(await this.amenityService.getAmenities()).setMessage('Danh sách tiện ích');

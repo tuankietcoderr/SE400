@@ -48,8 +48,6 @@ const HotelDetail = () => {
     setCheckOutDate(date);
   };
 
-  const handleBooking = () => {};
-
   const address = hotel
     ? [
         hotel.location.address,
@@ -58,6 +56,8 @@ const HotelDetail = () => {
         hotel.location.province.name,
       ].join(", ")
     : "";
+
+  console.log(hotel?.rating);
 
   return !hotel ? (
     <div>Đang tải...</div>
@@ -78,7 +78,6 @@ const HotelDetail = () => {
                 {hotel.name}
               </h1>
               <div className="flex items-center gap-2">
-                <Star size={20} stroke="#FDBE02" fill="#FDBE02" />
                 {Array.from({ length: hotel.rating }).map((_, i) => (
                   <Star key={i} size={20} stroke="#FDBE02" fill="#FDBE02" />
                 ))}

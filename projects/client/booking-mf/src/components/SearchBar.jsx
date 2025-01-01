@@ -45,6 +45,7 @@ const SearchBar = () => {
                 });
               }}
             >
+              <option value="">Chọn tỉnh/thành phố</option>
               {provinces.map((province) => (
                 <option value={province.code} key={province.code}>
                   {province.name}
@@ -64,6 +65,7 @@ const SearchBar = () => {
                 });
               }}
             >
+              <option value="">Chọn quận/huyện</option>
               {districts.map((district) => (
                 <option value={district.code} key={district.code}>
                   {district.name}
@@ -84,6 +86,7 @@ const SearchBar = () => {
                 });
               }}
             >
+              <option value="">Chọn phường/xã</option>
               {wards.map((ward) => (
                 <option value={ward.code} key={ward.code}>
                   {ward.name}

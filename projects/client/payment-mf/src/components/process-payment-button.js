@@ -14,6 +14,12 @@ class ProcessPaymentButton extends HTMLElement {
         alert("Vui lòng chọn phòng");
         return;
       }
+
+      if (this.#data.check_in_date >= this.#data.check_out_date) {
+        alert("Ngày nhận phòng phải trước ngày trả phòng");
+        return;
+      }
+
       const paymentMethod = this.#data.payment_method;
 
       fetch(`http://localhost:8000/api/payment/create/${paymentMethod}`, {

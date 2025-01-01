@@ -1,5 +1,5 @@
 import React from "react";
-import { DoorOpen, Heart, MapPin, Star } from "lucide-react";
+import { DoorOpen, Heart, MapPin, Star, Wifi } from "lucide-react";
 import { formatCurrency } from "../utils/formatter";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,7 @@ const HotelCard = ({ hotel }) => {
   return (
     <div className="border">
       <img src={hotel.thumbnail} className="w-full h-[260px] object-cover" />
-      <div className="p-4 space-y-4">
+      <div className="p-4 space-y-3">
         <p className="uppercase text-sm">{hotel.type}</p>
         <div className="flex">
           <h3 className="text-xl font-semibold line-clamp-2 flex-1">
@@ -19,17 +19,21 @@ const HotelCard = ({ hotel }) => {
         </div>
         <div className="flex items-center gap-2 text-sm text-slate-400">
           <Star size={16} stroke="#FDBE02" fill="#FDBE02" />
-          <p>{hotel.rating}/5</p>
+          <p>{hotel.rating > 0 ? hotel.rating.toFixed(2) : 0}/5</p>
           <p>{hotel.rating_count} đánh giá</p>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-slate-400">
+          <Wifi size={16} />
+          {hotel.amenities.map((amenity) => amenity.name).join(", ")}
         </div>
         <hr />
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2 flex-1">
-            <MapPin size={16} />
+            <MapPin size={16} className="mb-1" />
             <p className="flex-1">{hotel.location.province.name}</p>
           </div>
           <div className="flex items-center gap-2 flex-1">
-            <DoorOpen size={16} />
+            <DoorOpen size={16} className="mb-1" />
             <p className="flex-1">{hotel.rooms.length} phòng</p>
           </div>
         </div>

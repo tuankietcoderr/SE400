@@ -16,7 +16,7 @@ export const useAddress = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedProvince) {
+    if (selectedProvince && selectedProvince.code) {
       axios
         .get(
           `https://provinces.open-api.vn/api/p/${selectedProvince.code}?depth=2`
@@ -28,7 +28,7 @@ export const useAddress = () => {
   }, [selectedProvince]);
 
   useEffect(() => {
-    if (selectedDistrict) {
+    if (selectedDistrict && selectedDistrict.code) {
       axios
         .get(
           `https://provinces.open-api.vn/api/d/${selectedDistrict.code}?depth=2`
