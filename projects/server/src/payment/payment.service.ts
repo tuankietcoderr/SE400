@@ -68,6 +68,9 @@ export class PaymentService {
   async updatePaymentStatus(payment_id: string, status: EPaymentStatus) {
     const payment = await this.findByIdOrThrow(payment_id);
     payment.status = status;
+    if(status === EPaymentStatus.SUCCESS) {
+      payment.payment_date = new Date();
+    }
     return await payment.save();
   }
 
