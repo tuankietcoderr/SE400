@@ -10,16 +10,18 @@ import GoogleCallback from "./routes/GoogleCallback";
 
 const App = () => {
   return (
-    <UserProvider>
-      <Toaster />
-      <Router base="user">
-        <Route path="/" component={UserProfile} />
-        <Route path="/login" component={Login} />
-        <Route path="/login/google/callback" component={GoogleCallback} />
-        <Route path="/register" component={Register} />
-        <Route path="/forgot-password" component={ForgotPassword} />
-      </Router>
-    </UserProvider>
+    <>
+      <UserProvider>
+        <Toaster />
+        <Router base="user">
+          <Route path="/" component={UserProfile} />
+          <Route path="/login" component={Login} />
+          <Route path="/login/google/callback" component={GoogleCallback} />
+          <Route path="/register" component={Register} />
+          <Route path="/forgot-password" component={ForgotPassword} />
+        </Router>
+      </UserProvider>
+    </>
   );
 };
 
