@@ -47,7 +47,7 @@ const HotelListData = () => {
         createText="Tạo khách sạn"
         pagination={{
           page,
-          total: hotels.length / 10,
+          total: Math.ceil(hotels.length / 10),
           onChangePage: fetchNext,
         }}
       />

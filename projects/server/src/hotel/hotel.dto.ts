@@ -32,6 +32,7 @@ export class CreateHotelRequestDto {
     message: 'Mô tả phải có ít nhất 10 ký tự'
   })
   description: string;
+  @IsOptional()
   @IsUrl(
     {},
     {
