@@ -8,13 +8,11 @@ import Search from "./pages/Search";
 
 const App = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/:hotelId" element={<HotelDetail />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/search" element={<Search />} />
+      <Route path="/:hotelId" element={<HotelDetail />} />
+    </Routes>
   );
 };
 

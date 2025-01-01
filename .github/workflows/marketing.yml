@@ -5,11 +5,11 @@ on:
     branches:
       - master
     paths:
-      - "projects/client/marketing/**"
+      - "projects/client/marketing-mf/**"
 
 defaults:
   run:
-    working-directory: projects/client/marketing
+    working-directory: projects/client/marketing-mf
 
 jobs:
   build:

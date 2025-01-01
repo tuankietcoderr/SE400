@@ -5,11 +5,11 @@ on:
     branches:
       - master
     paths:
-      - "projects/client/user-profile/**"
+      - "projects/client/user-profile-mf/**"
 
 defaults:
   run:
-    working-directory: projects/client/user-profile
+    working-directory: projects/client/user-profile-mf
 
 jobs:
   build:
@@ -17,12 +17,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set Node.js 20.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+
       - uses: borales/actions-yarn@v4
         with:
           cmd: install
+          dir: projects/client/user-profile-mf
       - uses: borales/actions-yarn@v4
         with:
           cmd: build
+          dir: projects/client/user-profile-mf
         env:
           PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
 

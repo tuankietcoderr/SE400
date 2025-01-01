@@ -5,11 +5,11 @@ on:
     branches:
       - master
     paths:
-      - "projects/client/payment/**"
+      - "projects/client/payment-f/**"
 
 defaults:
   run:
-    working-directory: projects/client/payment
+    working-directory: projects/client/payment-mf
 
 jobs:
   build:

@@ -5,11 +5,11 @@ on:
     branches:
       - master
     paths:
-      - "projects/client/review/**"
+      - "projects/client/review-mf/**"
 
 defaults:
   run:
-    working-directory: projects/client/review
+    working-directory: projects/client/review-mf
 
 jobs:
   build:
