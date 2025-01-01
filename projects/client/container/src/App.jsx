@@ -16,7 +16,6 @@ const App = () => {
         <Route path="/payment/callback" element={<PaymentApp />} />
         <Route path="/user/*" element={<UserProfileApp />} />
       </Routes>
-      {/* <Footer /> */}
     </div>
   );
 };
