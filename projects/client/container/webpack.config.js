@@ -2,6 +2,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
+const isProduction = process.env.NODE_ENV === "production";
 
 const deps = require("./package.json").dependencies;
 
@@ -9,7 +10,9 @@ const printCompilationMessage = require("./compilation.config.js");
 
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: isProduction
+      ? "https://d34iub4xrq0nbc.cloudfront.net/"
+      : "http://localhost:8080/",
   },
 
   resolve: {
