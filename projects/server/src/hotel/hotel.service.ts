@@ -30,7 +30,13 @@ export class HotelService {
         _id: {
           $ne: hotelId
         },
-        type: hotel.type
+        $or: [{type: hotel.type}, {
+          'location.province.code': hotel.location.province.code
+        }, {
+          amenities: {
+            $in: hotel.amenities
+          }
+        }]
       },
       undefined,
       {
