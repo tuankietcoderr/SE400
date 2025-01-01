@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 const HotelCard = ({ hotel }) => {
   return (
-    <div className="border">
+    <div className="border flex flex-col">
       <img src={hotel.thumbnail} className="w-full h-[260px] object-cover" />
-      <div className="p-4 flex flex-col gap-3">
+      <div className="p-4 flex flex-col gap-3 gap-1">
         <p className="uppercase text-sm">{hotel.type}</p>
         <div className="flex-1 space-y-3">
           <div className="flex">
