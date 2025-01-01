@@ -81,7 +81,7 @@ export class BookingService {
           },
           {
             path: 'room_ids',
-            select: 'name capacity images type'
+            select: 'name capacity images type price'
           },
           {
             path: 'user_id',

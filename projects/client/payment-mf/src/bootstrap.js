@@ -34,6 +34,7 @@ const mount = (el) => {
         },
         body: JSON.stringify({
           status: "success",
+          payment_date: new Date(),
         }),
       }
     )
