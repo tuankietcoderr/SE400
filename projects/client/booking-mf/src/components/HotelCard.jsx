@@ -26,16 +26,13 @@ const HotelCard = ({ hotel }) => {
           <Wifi size={16} />
           {hotel.amenities.map((amenity) => amenity.name).join(", ")}
         </div>
-        <hr />
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 flex-1">
-            <MapPin size={16} className="mb-1" />
-            <p className="flex-1">{hotel.location.province.name}</p>
-          </div>
-          <div className="flex items-center gap-2 flex-1">
-            <DoorOpen size={16} className="mb-1" />
-            <p className="flex-1">{hotel.rooms.length} phòng</p>
-          </div>
+        <div className="flex items-center gap-2 text-sm text-slate-400">
+          <MapPin size={16} className="mb-1" />
+          <p className="flex-1">{hotel.location.province.name}</p>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-slate-400">
+          <DoorOpen size={16} className="mb-1" />
+          <p className="flex-1">{hotel.rooms.length} phòng</p>
         </div>
         <div className="flex gap-2 items-center">
           <p className="text-xl font-semibold flex-1">

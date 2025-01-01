@@ -14,7 +14,7 @@ const SuggestHotels = () => {
   return (
     <section className="mx-[5%] space-y-4">
       <h2 className="text-2xl font-semibold">Gợi ý khách sạn</h2>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(25rem,1fr))] gap-4">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-4">
         {hotels.map((hotel) => (
           <HotelCard key={hotel._id} hotel={hotel} />
         ))}

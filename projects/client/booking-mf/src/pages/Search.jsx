@@ -95,7 +95,7 @@ const Search = () => {
   };
 
   return (
-    <div className="mx-[5%] my-8 space-y-4 flex gap-8">
+    <div className="mx-[5%] my-8 flex gap-8">
       <aside className="max-w-[300px] w-full">
         <form onSubmit={onSubmit} onReset={onReset}>
           <h2 className="text-2xl font-semibold mb-2">Bộ lọc</h2>
@@ -360,12 +360,16 @@ const Search = () => {
         </form>
       </aside>
       <section className="flex-1">
-        <h2 className="text-2xl font-semibold">Kết quả tìm kiếm</h2>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(25rem,1fr))] gap-4">
-          {hotels.length > 0 ? (
-            hotels.map((hotel) => <HotelCard key={hotel._id} hotel={hotel} />)
+        <h2 className="text-2xl font-semibold mb-2">Kết quả tìm kiếm</h2>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-4">
+          {hotels ? (
+            hotels.length > 0 ? (
+              hotels.map((hotel) => <HotelCard key={hotel._id} hotel={hotel} />)
+            ) : (
+              <p>Không tìm thấy khách sạn nào</p>
+            )
           ) : (
-            <p>Không tìm thấy khách sạn nào</p>
+            <p>Đang tải dữ liệu...</p>
           )}
         </div>
       </section>
