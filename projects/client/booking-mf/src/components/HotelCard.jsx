@@ -8,7 +8,7 @@ const HotelCard = ({ hotel }) => {
     <div className="border flex flex-col">
       <img src={hotel.thumbnail} className="w-full h-[260px] object-cover" />
       <div className="p-4 flex flex-col gap-3 flex-1">
-        <p className="uppercase text-sm">{hotel.type}</p>
+        <p className="uppercase text-sm text-green-700">{hotel.type}</p>
         <div className="flex-1 flex flex-col justify-between gap-3">
           <div className="flex">
             <h3 className="text-xl font-semibold line-clamp-2 flex-1">
