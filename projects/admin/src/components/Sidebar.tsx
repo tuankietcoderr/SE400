@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
+import ThemeSwitcher from './ThemeSwitcher';
 
 const sidebarItems = [
   {
@@ -68,6 +69,7 @@ const Sidebar = () => {
       </div>
       <div className="flex items-center border-t p-4">
         <p className="flex-1 text-foreground-500">Xin chào, {user?.name}</p>
+        <ThemeSwitcher />
         <Button isIconOnly color="danger" variant="light" onPress={logout}>
           <LogOut size={24} strokeWidth={1.5} />
         </Button>

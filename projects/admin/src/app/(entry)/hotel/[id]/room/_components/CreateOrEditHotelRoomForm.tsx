@@ -164,8 +164,6 @@ const CreateOrEditHotelRoomForm = ({room}: CreateOrEditHotelRoomFormProps) => {
         </Select>
 
         <Textarea
-          isRequired
-          errorMessage="Vui lòng nhập mô tả"
           label="Mô tả"
           name="description"
           placeholder="Nhập mô tả"
