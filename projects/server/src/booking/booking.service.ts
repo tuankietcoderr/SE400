@@ -16,7 +16,6 @@ export class BookingService {
 
   async create(payload: CreateBookingRequestDto) {
     const bookingId = `BK${dayjs().format('YYYYMMDDHHmmss')}`;
-    console.log('bookingId', payload);
 
     const booking = new this.bookingModel({
       ...payload,
@@ -28,7 +27,7 @@ export class BookingService {
       user_id: payload.user_id,
       total_price: payload.total_price,
       payment_method: payload.payment_method,
-      payment_date: payload.payment_method === EPaymentMethod.CASH ? new Date() : null
+      payment_date: null
     });
 
     booking.payment_id = payment.id;

@@ -31,7 +31,7 @@ export class ErrorResponse<T> extends BaseResponse<T> {
   public override toJSON() {
     return {
       ...super.toJSON(),
-      stackTrace: process.env.NODE_ENV === 'production' ? null : this._stackTrace ?? null,
+      stackTrace: process.env.NODE_ENV === 'production' ? null : (this._stackTrace ?? null),
       exceptionName: this._exceptionName ?? null,
       success: false
     };

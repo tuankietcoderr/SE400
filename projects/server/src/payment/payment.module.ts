@@ -6,6 +6,7 @@ import { ignoreLogger } from 'vnpay';
 import { PaymentController } from './payment.controller';
 import { PaymentService } from './payment.service';
 import { PaymentContext } from './payment.strategy';
+import { PaymentFactory } from './payment.factory';
 
 @Module({
   imports: [
@@ -20,6 +21,6 @@ import { PaymentContext } from './payment.strategy';
     })
   ],
   controllers: [PaymentController],
-  providers: [PaymentService, PaymentContext, BookingService]
+  providers: [PaymentService, PaymentFactory, BookingService]
 })
 export class PaymentModule {}

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { EAuthStrategy, ERole } from '../enum';
+import { EAuthStrategy, ENotificationType, ERole } from '../enum';
 import { ENTITY_NAME } from '../constants';
 import { Document, HydratedDocument, Types, Schema as MongooseSchema } from 'mongoose';
 import { Hotel } from './hotel.entity';
@@ -47,6 +47,9 @@ export class User {
     default: []
   })
   bookings_hotels: Types.ObjectId[] | Booking[];
+
+  @Prop({ default: [ENotificationType.EMAIL], type: [String] })
+  notification_types: ENotificationType[];
 }
 
 const UserSchema = SchemaFactory.createForClass(User);

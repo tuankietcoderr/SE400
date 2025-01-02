@@ -23,7 +23,13 @@ import * as Joi from 'joi';
 
         GOOGLE_CLIENT_ID: Joi.string().required(),
         GOOGLE_CLIENT_SECRET: Joi.string().required(),
-        CLIENT_REDIRECT_URL: Joi.string().required()
+        CLIENT_REDIRECT_URL: Joi.string().required(),
+
+        MAIL_USER: Joi.string().required(),
+        MAIL_HOST: Joi.string().required(),
+        MAIL_PORT: Joi.number().required(),
+        MAIL_SECURE: Joi.boolean().required(),
+        MAIL_PASSWORD: Joi.string().required()
       }),
       isGlobal: true
     })

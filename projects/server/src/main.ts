@@ -9,6 +9,11 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { JwtAuthGuard } from './common/guards';
 import * as requestIp from 'request-ip';
+import { console } from 'inspector';
+import { UserService } from './user/user.service';
+import { NotificationManager } from './notifications/notification.manager';
+import { User } from './common/entities';
+import { UserObserver } from './notifications/user.observer';
 
 const signalsNames: NodeJS.Signals[] = ['SIGTERM', 'SIGINT', 'SIGHUP'];
 
@@ -62,6 +67,13 @@ async function bootstrap() {
   const PORT = configService.get('PORT') || 8000;
 
   await app.listen(PORT, async () => {
+    const userService = app.get(UserService);
+    const configService = app.get(ConfigService);
+    const subscribers = await userService.getAllSubscribersToNotifications();
+    NotificationManager.Instance.addObservers(
+      subscribers.map((subscriber) => new UserObserver(subscriber.toObject(), configService))
+    );
+
     logger.log(`App is listening on port ${PORT}`);
   });
 }

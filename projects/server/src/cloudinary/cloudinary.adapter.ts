@@ -1,10 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { UploadApiErrorResponse, UploadApiResponse, v2 } from 'cloudinary';
 import * as mime from 'mime-types';
+import { CloudStorage } from './cloud-storage.interface';
 
 @Injectable()
-export class CloudinaryService {
-  async upload(
+export class CloudinaryAdapter implements CloudStorage {
+  constructor(private readonly configService: ConfigService) {
+    v2.config({
+      cloud_name: this.configService.get<string>('CLOUDINARY_CLOUD_NAME'),
+      api_key: this.configService.get<string>('CLOUDINARY_API_KEY'),
+      api_secret: this.configService.get<string>('CLOUDINARY_API_SECRET')
+    });
+  }
+
+  async uploadFile(
     file: Express.Multer.File,
     folder: string = 'booking'
   ): Promise<UploadApiResponse | UploadApiErrorResponse> {
@@ -27,15 +37,18 @@ export class CloudinaryService {
     });
   }
 
-  async uploadMultiple(files: Express.Multer.File[]): Promise<Array<UploadApiResponse | UploadApiErrorResponse>> {
+  async uploadMultipleFiles(
+    files: Express.Multer.File[],
+    folder: string = 'booking'
+  ): Promise<Array<UploadApiResponse | UploadApiErrorResponse>> {
     return Promise.all(
       files.map(async (file) => {
-        return await this.upload(file);
+        return await this.uploadFile(file, folder);
       })
     );
   }
 
-  async deleteResource(
+  async deleteFile(
     public_id: string,
     resource_type: string
   ): Promise<{

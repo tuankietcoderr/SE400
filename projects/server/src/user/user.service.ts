@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from 'src/common/entities';
 import { CreateUserRequestDto } from './user.dto';
+import { ENotificationType } from 'src/common/enum';
 
 @Injectable()
 export class UserService {
@@ -71,6 +72,32 @@ export class UserService {
     if (!user) {
       throw new NotFoundException(`Không tìm thấy người dùng`);
     }
+    return user;
+  }
+
+  async getAllSubscribersToNotifications() {
+    return await this.userModel.find({
+      notification_types: {
+        $in: Object.values(ENotificationType),
+        $exists: true,
+        $ne: []
+      }
+    });
+  }
+
+  async subscribeToNotifications(userId: string, notificationTypes: ENotificationType[]) {
+    const user = await this.userModel.findByIdAndUpdate(
+      userId,
+      {
+        $set: { notification_types: notificationTypes }
+      },
+      { new: true }
+    );
+
+    if (!user) {
+      throw new NotFoundException(`Không tìm thấy người dùng`);
+    }
+
     return user;
   }
 }

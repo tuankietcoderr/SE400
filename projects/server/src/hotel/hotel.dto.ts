@@ -96,22 +96,13 @@ export class UpdateHotelRequestDto {
 }
 
 export class SearchHotelQueryDto {
-  @IsOptional()
   keyword?: string;
-  @IsOptional()
   district?: string;
-  @IsOptional()
   province?: string;
-  @IsOptional()
   ward?: string;
-  @IsOptional()
   type?: HotelType[];
-  @IsOptional()
   amenity?: string[];
-  @IsOptional()
   star?: number[];
-  @IsOptional()
   price?: string;
-  @IsOptional()
   sort?: string;
 }

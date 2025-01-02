@@ -21,6 +21,8 @@ import { RoomModule } from './room/room.module';
 import { UploadModule } from './upload/upload.module';
 import { UserModule } from './user/user.module';
 import { VnpayModule } from './vnpay/vnpay.module';
+import { NotificationsController } from './notifications/notifications.controller';
+import { NotificationsModule } from './notifications/notifications.module';
 @Module({
   imports: [
     MulterModule.register({
@@ -42,9 +44,10 @@ import { VnpayModule } from './vnpay/vnpay.module';
     UploadModule,
     CloudinaryModule,
     AssetModule,
-    VnpayModule
+    VnpayModule,
+    NotificationsModule
   ],
-  controllers: [AppController],
+  controllers: [AppController, NotificationsController],
   providers: [AppService, CredentialService]
 })
 export class AppModule {}

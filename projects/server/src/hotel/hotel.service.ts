@@ -4,10 +4,15 @@ import { Model } from 'mongoose';
 import { Hotel, HotelDocument } from 'src/common/entities';
 import { CreateHotelRequestDto, SearchHotelQueryDto, UpdateHotelRequestDto } from './hotel.dto';
 import { Address } from 'src/common/types';
+import { SearchHotelQueryBuilder } from './hotel.builder';
+import { HotelType } from 'src/common/enum';
 
 @Injectable()
 export class HotelService {
-  constructor(@InjectModel(Hotel.name) private readonly hotelModel: Model<HotelDocument>) {}
+  private searchHotelQueryBuilder: SearchHotelQueryBuilder;
+  constructor(@InjectModel(Hotel.name) private readonly hotelModel: Model<HotelDocument>) {
+    this.searchHotelQueryBuilder = new SearchHotelQueryBuilder();
+  }
 
   async createHotel(hotel: CreateHotelRequestDto) {
     return await this.hotelModel.create(hotel);
@@ -24,19 +29,17 @@ export class HotelService {
 
   async getRelativeHotels(hotelId: string) {
     const hotel = await this.getHotelByIdOrThrow(hotelId);
+    this.searchHotelQueryBuilder.reset();
+    this.searchHotelQueryBuilder.buildType(hotel.type.toString() as HotelType);
+    this.searchHotelQueryBuilder.buildProvince(hotel.location.province.code);
+    this.searchHotelQueryBuilder.buildAmenity(hotel.amenities.map((amenity) => amenity._id.toString()));
 
     return this.hotelModel.find(
       {
         _id: {
           $ne: hotelId
         },
-        $or: [{type: hotel.type}, {
-          'location.province.code': hotel.location.province.code
-        }, {
-          amenities: {
-            $in: hotel.amenities
-          }
-        }]
+        $or: this.searchHotelQueryBuilder.getQuery()
       },
       undefined,
       {
@@ -137,154 +140,25 @@ export class HotelService {
   }
 
   async searchHotels(query: SearchHotelQueryDto) {
-    const price = query.price ? query.price.split('-') : undefined;
     const sort = query.sort ? query.sort.split('_') : undefined;
     const sortVal = {
       asc: 1,
       desc: -1
     };
-    console.log(':QUERY', [
-      ...(query.keyword
-        ? [
-            {
-              name: {
-                $regex: query.keyword,
-                $options: 'i'
-              }
-            }
-          ]
-        : []),
-      ...(query.district
-        ? [
-            {
-              'location.district.code': query.district
-            }
-          ]
-        : []),
-      ...(query.province
-        ? [
-            {
-              'location.province.code': query.province
-            }
-          ]
-        : []),
-      ...(query.ward
-        ? [
-            {
-              'location.ward.code': query.ward
-            }
-          ]
-        : []),
-      ...(query.type && query.type.length > 0
-        ? [
-            {
-              type: {
-                $in: query.type
-              }
-            }
-          ]
-        : []),
-      ...(query.star
-        ? [
-            {
-              rating: {
-                $in: query.star
-              }
-            }
-          ]
-        : []),
-      ...(query.amenity && query.amenity.length > 0
-        ? [
-            {
-              amenities: {
-                $in: query.amenity
-              }
-            }
-          ]
-        : []),
-      ...(price
-        ? [
-            {
-              price: {
-                $gte: price ? Number(price[0]) : 0,
-                $lte: price ? Number(price[1]) || 100000000 : 100000000
-              }
-            }
-          ]
-        : [])
-    ]);
+
+    this.searchHotelQueryBuilder.reset();
+    this.searchHotelQueryBuilder.buildKeyword(query.keyword);
+    this.searchHotelQueryBuilder.buildDistrict(query.district);
+    this.searchHotelQueryBuilder.buildProvince(query.province);
+    this.searchHotelQueryBuilder.buildWard(query.ward);
+    this.searchHotelQueryBuilder.buildTypes(query.type);
+    this.searchHotelQueryBuilder.buildAmenity(query.amenity);
+    this.searchHotelQueryBuilder.buildStar(query.star);
+    this.searchHotelQueryBuilder.buildPrice(query.price);
+
     return this.hotelModel.find(
       {
-        $and: [
-          ...(query.keyword
-            ? [
-                {
-                  name: {
-                    $regex: query.keyword,
-                    $options: 'i'
-                  }
-                }
-              ]
-            : []),
-          ...(query.district
-            ? [
-                {
-                  'location.district.code': query.district
-                }
-              ]
-            : []),
-          ...(query.province
-            ? [
-                {
-                  'location.province.code': query.province
-                }
-              ]
-            : []),
-          ...(query.ward
-            ? [
-                {
-                  'location.ward.code': query.ward
-                }
-              ]
-            : []),
-          ...(query.type && query.type.length > 0
-            ? [
-                {
-                  type: {
-                    $in: query.type
-                  }
-                }
-              ]
-            : []),
-          ...(query.star
-            ? [
-                {
-                  rating: {
-                    $in: query.star
-                  }
-                }
-              ]
-            : []),
-          ...(query.amenity && query.amenity.length > 0
-            ? [
-                {
-                  amenities: {
-                    $in: query.amenity
-                  }
-                }
-              ]
-            : []),
-          ...(price
-            ? [
-                {
-                  price: {
-                    $gte: price ? Number(price[0]) : 0,
-                    $lte: price ? Number(price[1]) || 100000000 : 100000000
-                  }
-                }
-              ]
-            : [])
-        ]
+        $and: this.searchHotelQueryBuilder.getQuery()
       },
       undefined,
       {

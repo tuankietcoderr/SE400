@@ -47,7 +47,6 @@ export class UploadController {
   @Post('/multiple')
   @UseInterceptors(FilesInterceptor('files'))
   async uploadMultiple(@UploadedFiles() files: Array<Express.Multer.File>, @CurrentUser() user: User) {
-    console.log(files);
     const r = await this.uploadService.uploadMultipleFiles(files);
     const assets = await Promise.all(
       r.map(async (res) => {

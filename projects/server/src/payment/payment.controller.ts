@@ -11,15 +11,16 @@ import { RefundDetails } from 'src/common/types';
 import { CreateBookingRequestDto } from 'src/booking/booking.dto';
 import { BookingService } from 'src/booking/booking.service';
 import { User } from 'src/common/entities';
+import { PaymentFactory } from './payment.factory';
 
 @Controller('payment')
 export class PaymentController {
   constructor(
     private readonly paymentService: PaymentService,
-    private readonly paymentContext: PaymentContext,
     private readonly vnpayService: VnpayService,
     private readonly configService: ConfigService,
-    private readonly bookingService: BookingService
+    private readonly bookingService: BookingService,
+    private readonly paymentFactory: PaymentFactory
   ) {}
 
   @Roles([ERole.ADMIN])
@@ -55,17 +56,10 @@ export class PaymentController {
       ...payload,
       user_id: user._id.toString()
     });
-    switch (method) {
-      case EPaymentMethod.ONLINE_BANKING:
-        this.paymentContext.setPaymentStrategy(new OnlineBankingPaymentStrategy(this.vnpayService, this.configService));
-        break;
-      case EPaymentMethod.CASH:
-      default:
-        this.paymentContext.setPaymentStrategy(new CashPaymentStrategy());
-        break;
-    }
 
-    return new SuccessResponse(this.paymentContext.pay(payload.total_price, booking.payment_id.toString()));
+    const payment = this.paymentFactory.createPayment(method);
+
+    return new SuccessResponse(payment.pay(payload.total_price, booking.payment_id.toString()));
   }
 
   @Put(':id/refund')
