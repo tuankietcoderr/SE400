@@ -7,6 +7,7 @@ import { User } from 'src/common/entities';
 import { UserObserver } from './user.observer';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
+import { NotificationWithoutRecipient } from './notification.interface';
 
 @Controller('notifications')
 export class NotificationsController {
@@ -18,14 +19,9 @@ export class NotificationsController {
   ) {}
 
   @Roles([ERole.ADMIN])
-  @Get('send')
-  async send() {
-    return new SuccessResponse(
-      this.notificationsManager.sendNotification({
-        message: 'Hello',
-        subject: 'Test'
-      })
-    );
+  @Post('send')
+  async send(@Body() body: NotificationWithoutRecipient) {
+    return new SuccessResponse(this.notificationsManager.sendNotification(body));
   }
 
   @Post('subscribe')
